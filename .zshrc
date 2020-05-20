@@ -181,3 +181,5 @@ bindkey -v
 # You can use ctrl+v<KEY> to find the code of a key
 bindkey "^[OA" history-beginning-search-backward
 bindkey "^[OB" history-beginning-search-forward
+bindkey "^[OF" end-of-line
+bindkey "^[OH" beginning-of-line
