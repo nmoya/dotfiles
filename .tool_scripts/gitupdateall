@@ -1,0 +1,12 @@
+#!/bin/bash
+FOLDERS=/Users/nmoya/Repos/*
+START=$(pwd);
+cd /Users/nmoya/Repos;
+for f in $FOLDERS
+do
+	echo "Processing $f";
+	cd $f;
+	git pull origin master;
+	cd -;
+done
+cd $START

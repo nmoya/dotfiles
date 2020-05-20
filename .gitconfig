@@ -1,0 +1,35 @@
+[alias]
+	co = checkout
+	st = status
+	unstage = reset HEAD --
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit -n 20
+	gcane = commit --amend --no-edit
+	po = "!git push origin \"$(git rev-parse --abbrev-ref HEAD)\""
+	breaking = "!f() { \
+        git log \
+        --grep=\"[!]\" \
+        --color=always \
+        --oneline \
+        --date=format:\"%Y-%m-%d\" \
+        --pretty=\"format:%C(auto,yellow)%h%C(auto,blue)%>(12,trunc)%ad %C(auto,green)%<(11,trunc)%aN %C(auto,reset)%s%C(auto,red)% gD% D\" \
+        \"$1\"..\"$2\"; \
+      }; f"
+[user]
+	name = Nikolas Moya
+	email = moya@work.co
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+[core]
+	excludesfile = /Users/nmoya/.gitignore_global
+	editor = /Applications/Visual\\ Studio\\ Code.app/Contents/Resources/app/bin/code --wait
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[commit]
+	template = /Users/nmoya/.stCommitMsg
