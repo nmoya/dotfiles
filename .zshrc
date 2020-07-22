@@ -18,12 +18,11 @@ compinit
 export ZSH="/Users/nmoya/.oh-my-zsh"
 export JAVA_HOME=$(/usr/libexec/java_home)
 export PATH=$JAVA_HOME/jre/bin:$PATH
-export PATH=/usr/local/Cellar/python/3.7.5/bin:$PATH
-export PATH=/usr/local/bin:$PATH
 export PATH=$HOME/.tool_scripts:$PATH
 export PATH=/usr/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
 export PATH=$HOME/bin:$PATH
+export PATH=/usr/local/bin:$PATH
 
 alias ls="ls -G"
 alias cd..="cd .."
@@ -42,6 +41,7 @@ alias lynx="lynx -accept_all_cookies"
 alias jsondiff="node ~/Repos/jsondiff/jsondiff.js"
 alias code="/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code"
 alias dotfiles="/usr/bin/git --git-dir=/Users/nmoya/.dotfiles/ --work-tree=/Users/nmoya"
+
 
 # Defer initialization of nvm until nvm, node or a node-dependent command is
 # run. Ensure this block is only run once if .bashrc gets sourced multiple times
