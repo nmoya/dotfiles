@@ -44,7 +44,9 @@ alias grm="git rebase master"
 alias lynx="lynx -accept_all_cookies"
 alias jsondiff="node ~/Repos/jsondiff/jsondiff.js"
 alias code="/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code"
-alias dotfiles="/usr/bin/git --git-dir=/Users/nmoya/.dotfiles/ --work-tree=/Users/nmoya"
+alias vscode="/usr/bin/code"
+alias code="/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code"
+alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 
 
 # Defer initialization of nvm until nvm, node or a node-dependent command is
