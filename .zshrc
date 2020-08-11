@@ -8,15 +8,19 @@ setopt beep extendedglob nomatch notify
 export KEYTIMEOUT=1
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
-zstyle :compinstall filename '/Users/nmoya/.zshrc'
+zstyle :compinstall filename $HOME/.zshrc
 
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/nmoya/.oh-my-zsh"
-export JAVA_HOME=$(/usr/libexec/java_home)
+export ZSH=$HOME/.oh-my-zsh
+if [ -s "/usr/lib/jvm/java-8-openjdk-amd64" ]; then
+  export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
+else
+  export JAVA_HOME=$(/usr/libexec/java_home)
+fi
 export PATH=$JAVA_HOME/jre/bin:$PATH
 export PATH=$HOME/.tool_scripts:$PATH
 export PATH=/usr/bin:$PATH
@@ -37,7 +41,7 @@ alias gcm="git checkout master"
 alias gpr="git pull --rebase"
 alias grc="git rebase --continue"
 alias grm="git rebase master"
-alias lynx="lynx -accept_all_cookies" 
+alias lynx="lynx -accept_all_cookies"
 alias jsondiff="node ~/Repos/jsondiff/jsondiff.js"
 alias code="/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code"
 alias dotfiles="/usr/bin/git --git-dir=/Users/nmoya/.dotfiles/ --work-tree=/Users/nmoya"
