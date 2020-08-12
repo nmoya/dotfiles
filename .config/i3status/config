@@ -1,0 +1,43 @@
+# It is important that this file is edited as UTF-8.
+# The following line should contain a sharp s:
+# ß
+# If the above line is not correctly displayed, fix your editor first!
+
+general {
+	colors = true
+	color_good = "#BBBBBB"
+	color_bad = "#CC1616"
+	color_degraded = "#55858E"
+	interval = 5
+}
+
+order += "volume master"
+order += "cpu_usage"
+order += "disk /"
+order += "ethernet enp0s31f6"
+order += "tztime local"
+
+volume master {
+	format = " ♪: %volume " 
+	device = "default"
+	mixer = "Master"
+	mixer_idx = 0
+}
+
+cpu_usage {
+	format = "CPU: %usage "
+}
+
+disk "/" {
+	format = "HD: %avail/%total " 
+}
+
+ethernet enp0s31f6 {
+	# if you use %speed, i3status requires root privileges
+	format_up =  " %ip "
+	format_down = " Ω INTERNET DOWN "
+}
+
+tztime local {
+	format = " %h-%d %H:%M ☰ "
+}
