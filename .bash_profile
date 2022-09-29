@@ -82,3 +82,13 @@ if [ -f '/Users/nmoya/Downloads/google-cloud-sdk/completion.bash.inc' ]; then so
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 
 alias dotfiles='/usr/bin/git --git-dir=/Users/nmoya/.dotfiles/ --work-tree=/Users/nmoya'
+
+# Setting PATH for Python 3.8
+# The original version is saved in .bash_profile.pysave
+PATH="/Library/Frameworks/Python.framework/Versions/3.8/bin:${PATH}"
+export PATH
+
+# Setting PATH for Python 3.8
+# The original version is saved in .bash_profile.pysave
+PATH="/Library/Frameworks/Python.framework/Versions/3.8/bin:${PATH}"
+export PATH

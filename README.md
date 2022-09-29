@@ -1,4 +1,4 @@
-# Getting started
+# Configuring for the first time
 
 If you're starting from scratch, go ahead and create a .dotfiles folder, which we'll use to track your dotfiles
 

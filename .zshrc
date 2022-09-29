@@ -10,17 +10,21 @@ export KEYTIMEOUT=1
 # The following lines were added by compinstall
 zstyle :compinstall filename $HOME/.zshrc
 
-autoload -Uz compinit
-compinit
-# End of lines added by compinstall
+# autoload -Uz compinit
+# compinit
+# # End of lines added by compinstall
+
+# Disable zsh correct
+unsetopt correct_all
 
 # Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
-if [ -s "/usr/lib/jvm/java-8-openjdk-amd64" ]; then
-  export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
-else
-  export JAVA_HOME=$(/usr/libexec/java_home)
-fi
+export ZSH="/Users/nmoya/.oh-my-zsh"
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
 export PATH=$JAVA_HOME/jre/bin:$PATH
 export PATH=$HOME/.tool_scripts:$PATH
 export PATH=/usr/bin:$PATH
@@ -41,8 +45,7 @@ alias gcm="git checkout master"
 alias gpr="git pull --rebase"
 alias grc="git rebase --continue"
 alias grm="git rebase master"
-alias lynx="lynx -accept_all_cookies"
-alias jsondiff="node ~/Repos/jsondiff/jsondiff.js"
+alias lynx="lynx -accept_all_cookies" 
 alias code="/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code"
 alias vscode="/usr/bin/code"
 alias code="/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code"
@@ -150,7 +153,7 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git dotenv)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -185,7 +188,9 @@ source $ZSH/oh-my-zsh.sh
 bindkey -v
 # Up arrow will complete current command based in history
 # You can use ctrl+v<KEY> to find the code of a key
+# To know the code of a key, execute cat, press enter, press the key, then Ctrl+C.
 bindkey "^[OA" history-beginning-search-backward
 bindkey "^[OB" history-beginning-search-forward
 bindkey "^[OF" end-of-line
 bindkey "^[OH" beginning-of-line
+bindkey "^[[3~" delete-char
