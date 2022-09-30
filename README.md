@@ -39,6 +39,10 @@ Define the alias in the current shell scope
 
 `alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'`
 
+Set git status to hide untracked files
+
+`dotfiles config --local status.showUntrackedFiles no`
+
 Checkout the actual content from the git repository to your $HOME
 
 `dotfiles checkout`
