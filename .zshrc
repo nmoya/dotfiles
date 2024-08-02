@@ -18,19 +18,22 @@ zstyle :compinstall filename $HOME/.zshrc
 unsetopt correct_all
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/nmoya/.oh-my-zsh"
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home
+export ZSH=$HOME/.oh-my-zsh
 export ANDROID_HOME=$HOME/Library/Android/sdk
 export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
-export PATH=$JAVA_HOME/jre/bin:$PATH
 export PATH=$HOME/.tool_scripts:$PATH
 export PATH=/usr/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
 export PATH=$HOME/bin:$PATH
 export PATH=/usr/local/bin:$PATH
+
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
 
 alias ls="ls -G"
 alias cd..="cd .."
@@ -52,38 +55,9 @@ alias code="/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/co
 alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 
 
-# Defer initialization of nvm until nvm, node or a node-dependent command is
-# run. Ensure this block is only run once if .bashrc gets sourced multiple times
-# by checking whether __init_nvm is a function.
-if [ -s "$HOME/.nvm/nvm.sh" ] && [ ! "$(type __init_nvm)" = function ]; then
-  export NVM_DIR="$HOME/.nvm"
-  [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
-  declare -a __node_commands=('nvm' 'node' 'npm' 'yarn' 'gulp' 'grunt' 'webpack')
-  function __init_nvm() {
-    for i in "${__node_commands[@]}"; do unalias $i; done
-    . "$NVM_DIR"/nvm.sh
-    unset __node_commands
-    unset -f __init_nvm
-  }
-  for i in "${__node_commands[@]}"; do alias $i='__init_nvm && '$i; done
-fi
-
-# Added by to (https://github.com/nmoya/to.git)
-to() {
-  out=`python3 /Users/nmoya/Repos/to/to.py $@`
-  if [[ $out == c* ]]
-  then
-    eval $out
-  else
-    echo $out
-  fi
-}
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/nmoya/Downloads/google-cloud-sdk/path.bash.inc' ]; then source '/Users/nmoya/Downloads/google-cloud-sdk/path.bash.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/nmoya/Downloads/google-cloud-sdk/completion.bash.inc' ]; then source '/Users/nmoya/Downloads/google-cloud-sdk/completion.bash.inc'; fi
+export NVM_DIR="$HOME/.nvm"
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 # partial completion suggestions
 zstyle ':completion:*' list-suffixes
