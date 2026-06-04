@@ -67,7 +67,7 @@
     users.users.nmoya = {
         isNormalUser = true;
         description = "Nikolas Moya";
-        extraGroups = [ "networkmanager" "wheel" ];
+        extraGroups = [ "networkmanager" "wheel" "dialout" ];
     };
 
     # NVIDIA / graphics
