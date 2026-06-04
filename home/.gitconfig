@@ -16,20 +16,14 @@
       }; f"
 [user]
 	name = Nikolas Moya
-	email = moya@work.co
+	email = nikolasmoya@gmail.com
 [filter "lfs"]
 	required = true
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 [core]
-	excludesfile = /Users/nmoya/.gitignore_global
-	editor = /Applications/Visual\\ Studio\\ Code.app/Contents/Resources/app/bin/code --wait
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
+	excludesfile = /home/nmoya/.gitignore_global
+	editor = /run/current-system/sw/bin/code --wait
 [commit]
-	template = /Users/nmoya/.stCommitMsg
+	template = /home/nmoya/.stCommitMsg
