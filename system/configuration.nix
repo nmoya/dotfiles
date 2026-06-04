@@ -95,16 +95,19 @@
 
     # System packages
     environment.systemPackages = with pkgs; [
+        ncdu # ncurses disk usage analyzer
+        htop # interactive process viewer
+        mesa-demos # glxgears and other OpenGL demos
+        pciutils # list of PCI devices (lspci)
+        vim # text editor
         curl
         discord
         git
-        htop
-        mesa-demos
-        pciutils
-        vim
         vscode
         spotify
         godot
+        bazecor
+        telegram-desktop
     ];
 
     # This value determines the NixOS release from which the default
