@@ -103,6 +103,8 @@
         pciutils
         vim
         vscode
+        spotify
+        godot
     ];
 
     # This value determines the NixOS release from which the default
