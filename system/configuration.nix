@@ -8,7 +8,10 @@
     # Bootloader
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
-
+    # Use latest kernel.
+    boot.kernelPackages = pkgs.linuxPackages_latest;
+    boot.initrd.luks.devices."luks-da0ece32-498b-46d5-9685-53c7ce33a1b5".device = "/dev/disk/by-uuid/da0ece32-498b-46d5-9685-53c7ce33a1b5";
+    
     # Nixpkgs
     nixpkgs.config.allowUnfree = true;
 
@@ -68,6 +71,9 @@
         isNormalUser = true;
         description = "Nikolas Moya";
         extraGroups = [ "networkmanager" "wheel" "dialout" ];
+        packages = with pkgs; [
+    		
+    	];
     };
 
     # NVIDIA / graphics
