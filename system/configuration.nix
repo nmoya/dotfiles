@@ -118,6 +118,7 @@
         godot
         bazecor
         telegram-desktop
+        bluetui # TUI for bluetooth management
     ];
 
     # This value determines the NixOS release from which the default
