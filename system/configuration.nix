@@ -101,7 +101,7 @@
         pciutils # list of PCI devices (lspci)
         vim # text editor
         curl
-        discord
+        vesktop # open source client for discord
         git
         vscode
         spotify
