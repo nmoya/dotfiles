@@ -3,17 +3,26 @@ include /etc/sway/config.d/*
 
 set $mod Mod4
 
-terminal alacritty
-menu wmenu-run
+set $term alacritty
+set $menu wmenu-run
 
-bindsym $mod+Return exec alacritty
-bindsym $mod+d exec wmenu-run
+bindsym $mod+Return exec $term
+bindsym $mod+d exec $menu
 
 # Display profiles
-bindsym $mod+Shift+1 exec display-daily
-bindsym $mod+Shift+2 exec display-monitor-gaming
-bindsym $mod+Shift+3 exec display-tv-gaming
-bindsym $mod+Shift+4 exec display-mirror-casual
+bindsym $mod+Ctrl+1 exec display-daily
+bindsym $mod+Ctrl+2 exec display-monitor-gaming
+bindsym $mod+Ctrl+3 exec display-mirror-casual
+bindsym $mod+Ctrl+4 exec display-mirror-gaming
+bindsym $mod+Ctrl+5 exec display-tv-gaming
+
+# Layout
+bindsym $mod+b splith
+bindsym $mod+v splitv
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+bindsym $mod+f fullscreen
 
 # Reload / exit
 bindsym $mod+Shift+c reload

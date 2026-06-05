@@ -37,8 +37,12 @@
         source = ./.tool_scripts/display-mirror-casual;
         executable = true;
     };
+    home.file.".local/bin/display-mirror-gaming" = {
+        source = ./.tool_scripts/display-mirror-gaming;
+        executable = true;
+    };
 
-    xdg.configFile."sway/config".source = ./sway/config;
+    xdg.configFile."sway/config".source = ./.config/sway/config;
 
     home.stateVersion = "26.05";
 }

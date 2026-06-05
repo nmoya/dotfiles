@@ -134,6 +134,8 @@
         bazecor
         telegram-desktop
         bluetui # TUI for bluetooth management
+        tree
+        opencode
     ];
 
     # This value determines the NixOS release from which the default
