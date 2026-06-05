@@ -44,8 +44,12 @@
         layout = "us";
         variant = "intl";
     };
-
     console.keyMap = "us";
+
+    # Bluetooth
+    hardware.bluetooth.enable = true;
+    hardware.bluetooth.powerOnBoot = true;
+    services.blueman.enable = true;
 
     # Desktop
     services.xserver.enable = true;
