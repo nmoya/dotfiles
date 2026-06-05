@@ -117,7 +117,6 @@
         wlr.enable = true;
     };
 
-
     # System packages
     environment.systemPackages = with pkgs; [
         ncdu # ncurses disk usage analyzer
@@ -126,16 +125,10 @@
         pciutils # list of PCI devices (lspci)
         vim # text editor
         curl
-        vesktop # open source client for discord
         git
-        vscode
-        spotify
-        godot
-        bazecor
-        telegram-desktop
         bluetui # TUI for bluetooth management
+        wiremix # TUI tool to configure sound output / input
         tree
-        opencode
     ];
 
     # This value determines the NixOS release from which the default

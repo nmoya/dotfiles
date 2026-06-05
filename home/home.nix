@@ -19,6 +19,14 @@
         wl-mirror
         procps
         util-linux
+
+        opencode # TUI client for LLMs
+        vesktop # open source client for discord
+        vscode # Text editor
+        spotify # Sound player
+        godot # Gamedev engine
+        bazecor # Keyboard configuration tool
+        telegram-desktop # Messaging app
     ];
 
     home.file.".local/bin/display-daily" = {
