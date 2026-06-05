@@ -1,0 +1,20 @@
+# Important on NixOS.
+include /etc/sway/config.d/*
+
+set $mod Mod4
+
+terminal alacritty
+menu wmenu-run
+
+bindsym $mod+Return exec alacritty
+bindsym $mod+d exec wmenu-run
+
+# Display profiles
+bindsym $mod+Shift+1 exec display-daily
+bindsym $mod+Shift+2 exec display-monitor-gaming
+bindsym $mod+Shift+3 exec display-tv-gaming
+bindsym $mod+Shift+4 exec display-mirror-casual
+
+# Reload / exit
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+e exit

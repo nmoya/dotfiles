@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+pkill -x wl-mirror || true
+
+swaymsg "output HDMI-A-1 disable"
+swaymsg "output DP-1 enable mode 3840x2160@240Hz scale 1.5 position 0 0"

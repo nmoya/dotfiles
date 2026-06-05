@@ -3,6 +3,7 @@
 {
     imports = [
         ./hardware-configuration.nix
+        <home-manager/nixos>
     ];
 
     # Bootloader
@@ -70,7 +71,10 @@
         # jack.enable = true;
     };
 
-    # User
+    # User & Home manager
+    home-manager.useGlobalPkgs = true;
+    home-manager.useUserPackages = true;
+    home-manager.users.nmoya = import /home/nmoya/Projects/dotfiles/home/home.nix;
     users.users.nmoya = {
         isNormalUser = true;
         description = "Nikolas Moya";
@@ -99,9 +103,20 @@
     programs.steam = {
         enable = true;
         extraPackages = with pkgs; [
-        adwaita-icon-theme
+            adwaita-icon-theme
         ];
     };
+
+    programs.sway = {
+        enable = true;
+        wrapperFeatures.gtk = true;
+        extraOptions = [ "--unsupported-gpu" ];
+    };
+    xdg.portal = {
+        enable = true;
+        wlr.enable = true;
+    };
+
 
     # System packages
     environment.systemPackages = with pkgs; [

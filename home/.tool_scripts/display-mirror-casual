@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+pkill -x wl-mirror || true
+
+swaymsg "output DP-1 enable mode 3840x2160@119.999Hz scale 1 position 0 0"
+swaymsg "output HDMI-A-1 enable mode 3840x2160@119.88Hz scale 1 position 3840 0"
+
+sleep 1
+setsid -f wl-mirror --fullscreen-output HDMI-A-1 DP-1 >/tmp/wl-mirror.log 2>&1
