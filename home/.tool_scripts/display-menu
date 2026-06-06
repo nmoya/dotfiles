@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+choice="$({
+    printf '%s\n' 'daily'
+    printf '%s\n' 'monitor gaming'
+    printf '%s\n' 'mirror casual'
+    printf '%s\n' 'mirror gaming'
+    printf '%s\n' 'tv gaming'
+} | wmenu -p 'Display profile:')" || exit 0
+
+case "$choice" in
+    'daily') display-daily ;;
+    'monitor gaming') display-monitor-gaming ;;
+    'mirror casual') display-mirror-casual ;;
+    'mirror gaming') display-mirror-gaming ;;
+    'tv gaming') display-tv-gaming ;;
+esac

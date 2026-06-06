@@ -7,6 +7,7 @@ let
     };
     swayDisplayInputs = with pkgs; [ sway procps ];
     swayMirrorInputs = with pkgs; [ sway procps util-linux coreutils wl-mirror ];
+    displayMenuInputs = with pkgs; [ wmenu ];
 in
 {
     home.username = "nmoya";
@@ -39,6 +40,7 @@ in
         (customScript "display-tv-gaming" swayDisplayInputs)
         (customScript "display-mirror-casual" swayMirrorInputs)
         (customScript "display-mirror-gaming" swayMirrorInputs)
+        (customScript "display-menu" displayMenuInputs)
     ];
 
     xdg.configFile."sway/config".source = ./.config/sway/config;

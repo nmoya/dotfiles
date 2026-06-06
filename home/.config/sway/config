@@ -6,6 +6,9 @@ set $mod Mod4
 set $term alacritty
 set $menu wmenu-run
 
+# Initial display profile
+exec display-daily
+
 bindsym $mod+Return exec $term
 bindsym $mod+d exec $menu
 
@@ -31,14 +34,11 @@ bindsym $mod+Shift+Down move down
 
 bindsym $mod+Shift+q kill
 
-
 # Focus
 bindsym $mod+Left focus left
 bindsym $mod+Right focus right
 bindsym $mod+Up focus up
 bindsym $mod+Down focus down
-
-
 
 # Reload / exit
 bindsym $mod+Shift+c reload
