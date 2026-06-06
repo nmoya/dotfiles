@@ -1,11 +1,16 @@
 { config, pkgs, ... }:
 
+let
+    customScript = name: runtimeInputs: pkgs.writeShellApplication {
+        inherit name runtimeInputs;
+        text = builtins.readFile ./.tool_scripts/${name};
+    };
+    swayDisplayInputs = with pkgs; [ sway procps ];
+    swayMirrorInputs = with pkgs; [ sway procps util-linux coreutils wl-mirror ];
+in
 {
     home.username = "nmoya";
     home.homeDirectory = "/home/nmoya";
-    home.sessionPath = [
-        "$HOME/.local/bin"
-    ];
     home.packages = with pkgs; [
         # Sway specific
         alacritty # terminal emulator super + enter opens a terminal
@@ -27,28 +32,14 @@
         godot # Gamedev engine
         bazecor # Keyboard configuration tool
         telegram-desktop # Messaging app
-    ];
 
-    home.file.".local/bin/display-daily" = {
-        source = ./.tool_scripts/display-daily;
-        executable = true;
-    };
-    home.file.".local/bin/display-monitor-gaming" = {
-        source = ./.tool_scripts/display-monitor-gaming;
-        executable = true;
-    };
-    home.file.".local/bin/display-tv-gaming" = {
-        source = ./.tool_scripts/display-tv-gaming;
-        executable = true;
-    };
-    home.file.".local/bin/display-mirror-casual" = {
-        source = ./.tool_scripts/display-mirror-casual;
-        executable = true;
-    };
-    home.file.".local/bin/display-mirror-gaming" = {
-        source = ./.tool_scripts/display-mirror-gaming;
-        executable = true;
-    };
+        # Custom scripts
+        (customScript "display-daily" swayDisplayInputs)
+        (customScript "display-monitor-gaming" swayDisplayInputs)
+        (customScript "display-tv-gaming" swayDisplayInputs)
+        (customScript "display-mirror-casual" swayMirrorInputs)
+        (customScript "display-mirror-gaming" swayMirrorInputs)
+    ];
 
     xdg.configFile."sway/config".source = ./.config/sway/config;
 
