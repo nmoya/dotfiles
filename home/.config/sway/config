@@ -10,6 +10,9 @@ exec waybar
 workspace_layout tabbed
 # Decides horizontal/vertical split based on container size
 default_orientation auto
+default_border pixel 2
+default_floating_border pixel 2
+
 
 bindsym $mod+Return exec $term
 bindsym $mod+d exec $menu
