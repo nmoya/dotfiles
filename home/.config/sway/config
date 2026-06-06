@@ -12,7 +12,11 @@ workspace_layout tabbed
 default_orientation auto
 default_border pixel 2
 default_floating_border pixel 2
-
+# Keyboard
+input type:keyboard {
+    xkb_layout us
+    xkb_variant intl
+}
 
 bindsym $mod+Return exec $term
 bindsym $mod+d exec $menu

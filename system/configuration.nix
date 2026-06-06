@@ -103,7 +103,6 @@
     programs.steam = {
         enable = true;
         extraPackages = with pkgs; [
-            adwaita-icon-theme
         ];
     };
 
@@ -119,6 +118,7 @@
 
     # System packages
     environment.systemPackages = with pkgs; [
+        adwaita-icon-theme
         ncdu # ncurses disk usage analyzer
         htop # interactive process viewer
         mesa-demos # glxgears and other OpenGL demos
