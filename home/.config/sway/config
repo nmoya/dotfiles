@@ -84,10 +84,10 @@ bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
-bindsym $mod+Tab workspace next
-bindsym $mod+Shift+Tab workspace prev
-bindsym Mod1+Tab focus next
-bindsym Mod1+Shift+Tab focus prev
+bindsym $mod+Tab focus next
+bindsym $mod+Shift+Tab focus prev
+bindsym Mod1+Tab workspace next
+bindsym Mod1+Shift+Tab workspace prev
 
 # Audio
 bindsym $mod+minus exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%-
