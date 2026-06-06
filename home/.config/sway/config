@@ -6,6 +6,7 @@ set $mod Mod4
 set $term alacritty
 set $menu wmenu-run
 exec display-daily
+exec waybar
 workspace_layout tabbed
 # Decides horizontal/vertical split based on container size
 default_orientation auto
@@ -84,3 +85,8 @@ bindsym $mod+Tab workspace next
 bindsym $mod+Shift+Tab workspace prev
 bindsym Mod1+Tab focus next
 bindsym Mod1+Shift+Tab focus prev
+
+# Audio
+bindsym $mod+minus exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%-
+bindsym $mod+equal exec wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 10%+
+bindsym $mod+bracketleft exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle

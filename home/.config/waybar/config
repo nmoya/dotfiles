@@ -1,0 +1,31 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 32,
+    "modules-left": ["sway/workspaces"],
+    "modules-center": ["sway/window"],
+    "modules-right": ["custom/display", "custom/microphone", "pulseaudio", "clock"],
+    "sway/workspaces": {
+    "disable-scroll": true,
+    "all-outputs": true
+    },
+    "sway/window": {
+        "max-length": 80
+    },
+    "custom/display": {
+        "format": "display",
+        "on-click": "display-menu"
+    },
+    "custom/microphone": {
+        "exec": "wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -q MUTED && echo 'mic muted' || echo 'mic on'",
+        "interval": 1,
+        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+    },
+    "pulseaudio": {
+        "format": "vol {volume}%",
+        "format-muted": "muted"
+    },
+    "clock": {
+        "format": "{:%a %d %b  %H:%M}"
+    }
+}

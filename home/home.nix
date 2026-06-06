@@ -44,6 +44,8 @@ in
     ];
 
     xdg.configFile."sway/config".source = ./.config/sway/config;
+    xdg.configFile."waybar/config".source = ./.config/waybar/config;
+    xdg.configFile."waybar/style.css".source = ./.config/waybar/style.css;
 
     home.stateVersion = "26.05";
 }
