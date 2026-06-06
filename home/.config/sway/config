@@ -13,6 +13,7 @@ bindsym $mod+Return exec $term
 bindsym $mod+d exec $menu
 
 # Display profiles
+bindsym $mod+Ctrl+d exec display-menu
 bindsym $mod+Ctrl+1 exec display-daily
 bindsym $mod+Ctrl+2 exec display-monitor-gaming
 bindsym $mod+Ctrl+3 exec display-mirror-casual
