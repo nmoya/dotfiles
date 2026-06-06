@@ -43,14 +43,6 @@ in
         (customScript "display-menu" displayMenuInputs)
     ];
 
-    home.pointerCursor = {
-        package = pkgs.adwaita-icon-theme;
-        name = "Adwaita";
-        size = 32;
-        gtk.enable = true;
-        x11.enable = true;
-    };
-
     xdg.configFile."sway/config".source = ./.config/sway/config;
     xdg.configFile."waybar/config".source = ./.config/waybar/config;
     xdg.configFile."waybar/style.css".source = ./.config/waybar/style.css;
