@@ -35,12 +35,10 @@ window#waybar {
     padding: 0 12px;
     color: #d1d5db;
 }
-#cpu,
-#memory,
-#disk,
 #clock,
 #custom-display,
-#custom-gpu,
+#custom-hardware,
+#custom-bluetooth,
 #custom-audio,
 #custom-power {
     padding: 0 12px;
@@ -52,17 +50,11 @@ window#waybar {
 #custom-display {
     color: #93c5fd;
 }
-#cpu {
-    color: #a7f3d0;
-}
-#custom-gpu {
+#custom-hardware {
     color: #c4b5fd;
 }
-#memory {
-    color: #f9a8d4;
-}
-#disk {
-    color: #fdba74;
+#custom-bluetooth {
+    color: #60a5fa;
 }
 #custom-power {
     color: #f87171;

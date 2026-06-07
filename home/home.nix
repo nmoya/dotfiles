@@ -11,7 +11,7 @@ let
     displayStatusInputs = [ ];
     micInputs = with pkgs; [ pulseaudio gnugrep ];
     audioInputs = with pkgs; [ pulseaudio gnugrep coreutils ];
-    gpuInputs = [ ];
+    hardwareStatsInputs = with pkgs; [ coreutils ];
     powerMenuInputs = with pkgs; [ wmenu sway systemd ];
 in
 {
@@ -47,10 +47,9 @@ in
         (customScript "display-mirror-gaming" swayMirrorInputs)
         (customScript "display-menu" displayMenuInputs)
         (customScript "display-status" displayStatusInputs)
-        (customScript "mic-status" micInputs)
         (customScript "mic-toggle" micInputs)
         (customScript "audio-status" audioInputs)
-        (customScript "gpu-status" gpuInputs)
+        (customScript "hardware-stats" hardwareStatsInputs)
         (customScript "power-menu" powerMenuInputs)
     ];
 
