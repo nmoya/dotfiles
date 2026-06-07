@@ -36,6 +36,7 @@ window#waybar {
     color: #d1d5db;
 }
 #clock,
+#network,
 #custom-display,
 #custom-hardware,
 #custom-bluetooth,
@@ -52,6 +53,12 @@ window#waybar {
 }
 #custom-hardware {
     color: #c4b5fd;
+}
+#network {
+    color: #22c55e;
+}
+#network.disconnected {
+    color: #f87171;
 }
 #custom-bluetooth {
     color: #60a5fa;

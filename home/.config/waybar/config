@@ -4,7 +4,7 @@
     "height": 32,
     "modules-left": ["sway/workspaces"],
     "modules-center": ["sway/window"],
-    "modules-right": ["custom/display", "custom/hardware", "custom/bluetooth", "custom/audio", "clock", "custom/power"],
+    "modules-right": ["custom/display", "custom/hardware", "network", "custom/bluetooth", "custom/audio", "clock", "custom/power"],
     "sway/workspaces": {
     "disable-scroll": true,
     "all-outputs": true
@@ -24,6 +24,14 @@
         "return-type": "json",
         "tooltip": true,
         "on-click-right": "alacritty -e ncdu -x /"
+    },
+    "network": {
+        "format-wifi": "󰖩",
+        "format-disconnected": "󰖪",
+        "tooltip-format-wifi": "Wi-Fi connected: {essid}",
+        "tooltip-format-disconnected": "Wi-Fi disconnected",
+        "on-click": "sh -c 'nmcli device wifi rescan; alacritty -e nmtui'",
+        "on-click-right": "sh -c 'nmcli device wifi rescan; alacritty -e nmtui'"
     },
     "custom/bluetooth": {
         "format": "󰂯",
