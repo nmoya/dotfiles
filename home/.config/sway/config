@@ -12,7 +12,8 @@ workspace_layout tabbed
 default_orientation auto
 default_border pixel 2
 default_floating_border pixel 2
-# Keyboard
+# Mouse and Keyboard
+seat seat0 xcursor_theme Adwaita 24
 input type:keyboard {
     xkb_layout us
     xkb_variant intl

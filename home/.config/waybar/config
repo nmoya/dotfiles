@@ -13,17 +13,19 @@
         "max-length": 80
     },
     "custom/display": {
-        "format": "display",
+        "format": "󰍹",
+        "tooltip": true,
+        "tooltip-format": "Display profile",
         "on-click": "display-menu"
     },
     "custom/microphone": {
-        "exec": "wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -q MUTED && echo 'mic muted' || echo 'mic on'",
+        "exec": "wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -q MUTED && echo '󰍭 muted' || echo '󰍬 on'",
         "interval": 1,
         "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
     },
     "pulseaudio": {
-        "format": "vol {volume}%",
-        "format-muted": "muted"
+        "format": " {volume}%",
+        "format-muted": "󰝟 muted"
     },
     "clock": {
         "format": "{:%a %d %b  %H:%M}"
