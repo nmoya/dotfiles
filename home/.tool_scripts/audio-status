@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+sources=()
+while read -r _ name _; do
+    [[ "$name" == *.monitor ]] && continue
+    sources+=("$name")
+done < <(pactl list short sources)
+
+if [[ "${#sources[@]}" -eq 0 ]]; then
+    mic_text="<span foreground='#f87171'>󰍭 no mic</span>"
+    mic_class='muted'
+else
+    muted=0
+    for source in "${sources[@]}"; do
+        if pactl get-source-mute "$source" | grep -q 'yes'; then
+            muted=$((muted + 1))
+        fi
+    done
+
+    if [[ "$muted" -eq "${#sources[@]}" ]]; then
+        mic_text="<span foreground='#f87171'>󰍭 muted</span>"
+        mic_class='muted'
+    else
+        mic_text="<span foreground='#86efac'>󰍬 on</span>"
+        mic_class='on'
+    fi
+fi
+
+sink_volume="$(pactl get-sink-volume @DEFAULT_SINK@ | grep -o '[0-9]\+%' | head -n 1)"
+if pactl get-sink-mute @DEFAULT_SINK@ | grep -q 'yes'; then
+    volume_text='󰝟 muted'
+else
+    volume_text=" ${sink_volume}"
+fi
+
+printf '{"text":"%s  %s","class":"%s"}\n' "$mic_text" "$volume_text" "$mic_class"

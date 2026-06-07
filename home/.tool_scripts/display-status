@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+state_file="${XDG_RUNTIME_DIR:-/tmp}/display-profile"
+
+if [[ -r "$state_file" ]]; then
+    profile="$(<"$state_file")"
+else
+    profile="unknown"
+fi
+
+printf '󰍹 %s\n' "$profile"

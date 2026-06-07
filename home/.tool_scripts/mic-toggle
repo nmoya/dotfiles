@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+sources=()
+while read -r _ name _; do
+    [[ "$name" == *.monitor ]] && continue
+    sources+=("$name")
+done < <(pactl list short sources)
+
+if [[ "${#sources[@]}" -eq 0 ]]; then
+    exit 0
+fi
+
+all_muted=true
+for source in "${sources[@]}"; do
+    if ! pactl get-source-mute "$source" | grep -q 'yes'; then
+        all_muted=false
+        break
+    fi
+done
+
+if [[ "$all_muted" == true ]]; then
+    target_mute=0
+else
+    target_mute=1
+fi
+
+for source in "${sources[@]}"; do
+    pactl set-source-mute "$source" "$target_mute"
+done

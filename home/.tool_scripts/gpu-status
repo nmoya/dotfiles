@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+nvidia_smi="${NVIDIA_SMI:-/run/current-system/sw/bin/nvidia-smi}"
+
+if [[ ! -x "$nvidia_smi" ]]; then
+    printf '󰢮 n/a\n'
+    exit 0
+fi
+
+IFS=',' read -r util mem_used mem_total temp < <(
+    "$nvidia_smi" --query-gpu=utilization.gpu,memory.used,memory.total,temperature.gpu --format=csv,noheader,nounits
+)
+
+util="${util// /}"
+mem_used="${mem_used// /}"
+mem_total="${mem_total// /}"
+temp="${temp// /}"
+mem_percent=$((mem_used * 100 / mem_total))
+
+printf '󰢮 %s%%  %s%% %s°C\n' "$util" "$mem_percent" "$temp"

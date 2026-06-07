@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+choice="$({
+    printf '%s\n' 'suspend'
+    printf '%s\n' 'logout'
+    printf '%s\n' 'reboot'
+    printf '%s\n' 'shutdown'
+} | wmenu -p 'Power:')" || exit 0
+
+case "$choice" in
+    'suspend') systemctl suspend ;;
+    'logout') swaymsg exit ;;
+    'reboot') systemctl reboot ;;
+    'shutdown') systemctl poweroff ;;
+esac

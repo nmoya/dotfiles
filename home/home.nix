@@ -8,6 +8,11 @@ let
     swayDisplayInputs = with pkgs; [ sway procps ];
     swayMirrorInputs = with pkgs; [ sway procps util-linux coreutils wl-mirror ];
     displayMenuInputs = with pkgs; [ wmenu ];
+    displayStatusInputs = [ ];
+    micInputs = with pkgs; [ pulseaudio gnugrep ];
+    audioInputs = with pkgs; [ pulseaudio gnugrep coreutils ];
+    gpuInputs = [ ];
+    powerMenuInputs = with pkgs; [ wmenu sway systemd ];
 in
 {
     home.username = "nmoya";
@@ -41,6 +46,12 @@ in
         (customScript "display-mirror-casual" swayMirrorInputs)
         (customScript "display-mirror-gaming" swayMirrorInputs)
         (customScript "display-menu" displayMenuInputs)
+        (customScript "display-status" displayStatusInputs)
+        (customScript "mic-status" micInputs)
+        (customScript "mic-toggle" micInputs)
+        (customScript "audio-status" audioInputs)
+        (customScript "gpu-status" gpuInputs)
+        (customScript "power-menu" powerMenuInputs)
     ];
 
     xdg.configFile."sway/config".source = ./.config/sway/config;

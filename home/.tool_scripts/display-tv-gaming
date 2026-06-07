@@ -5,3 +5,5 @@ pkill -x wl-mirror || true
 
 swaymsg "output HDMI-A-1 enable mode 3840x2160@119.88Hz scale 1 position 0 0"
 swaymsg "output DP-1 disable"
+
+printf '%s\n' 'tv gaming' > "${XDG_RUNTIME_DIR:-/tmp}/display-profile"

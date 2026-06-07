@@ -4,7 +4,7 @@
     "height": 32,
     "modules-left": ["sway/workspaces"],
     "modules-center": ["sway/window"],
-    "modules-right": ["custom/display", "custom/microphone", "pulseaudio", "clock"],
+    "modules-right": ["custom/display", "cpu", "custom/gpu", "memory", "disk", "custom/audio", "clock", "custom/power"],
     "sway/workspaces": {
     "disable-scroll": true,
     "all-outputs": true
@@ -13,21 +13,44 @@
         "max-length": 80
     },
     "custom/display": {
-        "format": "󰍹",
+        "exec": "display-status",
+        "interval": 1,
         "tooltip": true,
-        "tooltip-format": "Display profile",
         "on-click": "display-menu"
     },
-    "custom/microphone": {
-        "exec": "wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -q MUTED && echo '󰍭 muted' || echo '󰍬 on'",
-        "interval": 1,
-        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+    "cpu": {
+        "format": " {usage}%",
+        "interval": 2
     },
-    "pulseaudio": {
-        "format": " {volume}%",
-        "format-muted": "󰝟 muted"
+    "custom/gpu": {
+        "exec": "gpu-status",
+        "interval": 2,
+        "tooltip": false
+    },
+    "memory": {
+        "format": " {percentage}%",
+        "interval": 5
+    },
+    "disk": {
+        "path": "/",
+        "format": " {percentage_used}%",
+        "interval": 30
+    },
+    "custom/audio": {
+        "exec": "audio-status",
+        "interval": 1,
+        "return-type": "json",
+        "escape": false,
+        "on-click": "mic-toggle",
+        "on-click-right": "alacritty -e wiremix"
     },
     "clock": {
-        "format": "{:%a %d %b  %H:%M}"
+        "format": "{:%b %d %H:%M}"
+    },
+    "custom/power": {
+        "format": "⏻",
+        "tooltip": true,
+        "tooltip-format": "Power menu",
+        "on-click": "power-menu"
     }
 }

@@ -35,21 +35,37 @@ window#waybar {
     padding: 0 12px;
     color: #d1d5db;
 }
-#pulseaudio,
+#cpu,
+#memory,
+#disk,
 #clock,
 #custom-display,
-#custom-microphone {
+#custom-gpu,
+#custom-audio,
+#custom-power {
     padding: 0 12px;
     margin: 4px 4px;
     background: #111827;
     color: #e5e7eb;
     border-radius: 6px;
 }
-#pulseaudio.muted {
-    color: #f87171;
-}
 #custom-display {
     color: #93c5fd;
+}
+#cpu {
+    color: #a7f3d0;
+}
+#custom-gpu {
+    color: #c4b5fd;
+}
+#memory {
+    color: #f9a8d4;
+}
+#disk {
+    color: #fdba74;
+}
+#custom-power {
+    color: #f87171;
 }
 #clock {
     color: #facc15;
