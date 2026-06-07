@@ -5,14 +5,16 @@ let
         inherit name runtimeInputs;
         text = builtins.readFile ./.tool_scripts/${name};
     };
+    styledWmenu = customScript "styled-wmenu" (with pkgs; [ wmenu ]);
+    styledWmenuRun = customScript "styled-wmenu-run" (with pkgs; [ wmenu ]);
     swayDisplayInputs = with pkgs; [ sway procps ];
     swayMirrorInputs = with pkgs; [ sway procps util-linux coreutils wl-mirror ];
-    displayMenuInputs = with pkgs; [ wmenu ];
+    displayMenuInputs = [ styledWmenu ];
     displayStatusInputs = [ ];
     micInputs = with pkgs; [ pulseaudio gnugrep ];
     audioInputs = with pkgs; [ pulseaudio gnugrep coreutils ];
     hardwareStatsInputs = with pkgs; [ coreutils ];
-    powerMenuInputs = with pkgs; [ wmenu sway systemd ];
+    powerMenuInputs = [ styledWmenu ] ++ (with pkgs; [ sway systemd ]);
 in
 {
     home.username = "nmoya";
@@ -40,6 +42,8 @@ in
         telegram-desktop # Messaging app
 
         # Custom scripts
+        styledWmenu
+        styledWmenuRun
         (customScript "display-daily" swayDisplayInputs)
         (customScript "display-monitor-gaming" swayDisplayInputs)
         (customScript "display-tv-gaming" swayDisplayInputs)

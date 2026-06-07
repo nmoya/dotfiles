@@ -6,7 +6,7 @@ choice="$({
     printf '%s\n' 'logout'
     printf '%s\n' 'reboot'
     printf '%s\n' 'shutdown'
-} | wmenu -p 'Power:')" || exit 0
+} | styled-wmenu -p 'Power:')" || exit 0
 
 case "$choice" in
     'suspend') systemctl suspend ;;

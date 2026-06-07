@@ -4,7 +4,7 @@ include /etc/sway/config.d/*
 # defaults
 set $mod Mod4
 set $term alacritty
-set $menu wmenu-run
+set $menu styled-wmenu-run
 exec display-daily
 exec waybar
 workspace_layout tabbed

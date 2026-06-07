@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+exec wmenu \
+    -i \
+    -f 'JetBrainsMono Nerd Font 13' \
+    -N 14161cff \
+    -n e6e6e6ff \
+    -M 111827ff \
+    -m 93c5fdff \
+    -S 4f46e5ff \
+    -s ffffffff \
+    "$@"

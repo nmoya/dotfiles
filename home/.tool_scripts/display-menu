@@ -7,7 +7,7 @@ choice="$({
     printf '%s\n' 'mirror casual'
     printf '%s\n' 'mirror gaming'
     printf '%s\n' 'tv gaming'
-} | wmenu -p 'Display profile:')" || exit 0
+} | styled-wmenu -p 'Display profile:')" || exit 0
 
 case "$choice" in
     'daily') display-daily ;;

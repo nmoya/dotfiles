@@ -1,10 +1,10 @@
 {
     "layer": "top",
     "position": "top",
-    "height": 32,
+    "height": 29,
     "modules-left": ["sway/workspaces"],
     "modules-center": ["sway/window"],
-    "modules-right": ["custom/display", "custom/hardware", "network", "custom/bluetooth", "custom/audio", "clock", "custom/power"],
+    "modules-right": ["custom/display", "custom/hardware", "custom/bluetooth", "custom/audio", "network", "clock", "custom/power"],
     "sway/workspaces": {
     "disable-scroll": true,
     "all-outputs": true
