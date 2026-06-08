@@ -41,6 +41,10 @@ in
         bazecor # Keyboard configuration tool
         telegram-desktop # Messaging app
 
+        # Python stack
+        python314
+        uv
+
         # Custom scripts
         styledWmenu
         styledWmenuRun
