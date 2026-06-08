@@ -6,8 +6,21 @@
     "modules-center": ["sway/window"],
     "modules-right": ["custom/display", "custom/hardware", "custom/bluetooth", "custom/audio", "network", "clock", "custom/power"],
     "sway/workspaces": {
-    "disable-scroll": true,
-    "all-outputs": true
+        "disable-scroll": true,
+        "all-outputs": true,
+        "format": "{name} {windows}",
+        "format-window-separator": " ",
+        "window-rewrite-default": "•",
+        "window-rewrite": {
+            "class<firefox>": "",
+            "class<Alacritty>": "",
+            "class<code>": "󰨞",
+            "class<Spotify>": "",
+            "class<vesktop>": "󰙯",
+            "class<org.telegram.desktop>": "",
+            "class<steam>": "",
+            "class<Godot>": ""
+        }
     },
     "sway/window": {
         "max-length": 80

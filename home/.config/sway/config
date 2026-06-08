@@ -12,7 +12,7 @@ exec udiskie --automount --notify
 
 exec display-daily
 exec waybar
-workspace_layout tabbed
+workspace_layout default
 # Decides horizontal/vertical split based on container size
 default_orientation auto
 default_border pixel 2
