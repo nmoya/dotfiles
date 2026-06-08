@@ -15,7 +15,7 @@ let
     audioInputs = with pkgs; [ pulseaudio gnugrep coreutils ];
     hardwareStatsInputs = with pkgs; [ coreutils ];
     powerMenuInputs = [ styledWmenu ] ++ (with pkgs; [ sway systemd ]);
-    iplayedInputs = [ uv ]
+    iplayedInputs = with pkgs; [ uv alacritty ];
 in
 {
     home.username = "nmoya";

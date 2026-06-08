@@ -1,4 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
+cd "$HOME/Projects/iplayed"
 
-uv run python ~/Projects/iplayed/iplayed_cli/app.py
+if [ -t 1 ]; then
+    exec uv run python ./iplayed_cli/app.py
+else
+    exec alacritty --working-directory "$HOME/Projects/iplayed" -e uv run python ./iplayed_cli/app.py
+fi
