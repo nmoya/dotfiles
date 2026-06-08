@@ -2,7 +2,8 @@
 include /etc/sway/config.d/*
 
 # defaults
-set $mod Mod4
+set $super Mod4
+set $lalt Mod1
 set $term alacritty
 set $menu styled-wmenu-run
 
@@ -23,41 +24,43 @@ input type:keyboard {
     xkb_variant intl
 }
 
-bindsym $mod+Return exec $term
-bindsym $mod+d exec $menu
+bindsym $super+Return exec $term
+bindsym $super+d exec $menu
 
 # Display profiles
-bindsym $mod+Ctrl+d exec display-menu
-bindsym $mod+Ctrl+1 exec display-daily
-bindsym $mod+Ctrl+2 exec display-monitor-gaming
-bindsym $mod+Ctrl+3 exec display-mirror-casual
-bindsym $mod+Ctrl+4 exec display-mirror-gaming
-bindsym $mod+Ctrl+5 exec display-tv-gaming
+bindsym $super+Ctrl+d exec display-menu
+bindsym $super+Ctrl+1 exec display-daily
+bindsym $super+Ctrl+2 exec display-monitor-gaming
+bindsym $super+Ctrl+3 exec display-mirror-casual
+bindsym $super+Ctrl+4 exec display-mirror-gaming
+bindsym $super+Ctrl+5 exec display-tv-gaming
 
 # Layout
-bindsym $mod+b splith
-bindsym $mod+v splitv
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
-bindsym $mod+f fullscreen
+bindsym $super+b splith
+bindsym $super+v splitv
+bindsym $super+s layout stacking
+bindsym $super+w layout tabbed
+bindsym $super+e layout toggle split
+bindsym $super+f fullscreen
 
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Right move right
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Down move down
+bindsym $super+Shift+Left move left
+bindsym $super+Shift+Right move right
+bindsym $super+Shift+Up move up
+bindsym $super+Shift+Down move down
 
-bindsym $mod+Shift+q kill
+bindsym $super+Shift+q kill
 
 # Focus
-bindsym $mod+Left focus left
-bindsym $mod+Right focus right
-bindsym $mod+Up focus up
-bindsym $mod+Down focus down
+bindsym $super+Left focus left
+bindsym $super+Right focus right
+bindsym $super+Up focus up
+bindsym $super+Down focus down
+bindsym $super+Shift+t focus parent, layout toggle split, focus child
+bindsym $super+a focus parent
 
 # Reload / exit
-bindsym $mod+Shift+c reload
-bindsym $mod+Shift+e exit
+bindsym $super+Shift+c reload
+bindsym $super+Shift+e exit
 
 # Workspaces
 set $ws1 "1"
@@ -71,37 +74,57 @@ set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
 
-bindsym $mod+1 workspace $ws1
-bindsym $mod+2 workspace $ws2
-bindsym $mod+3 workspace $ws3
-bindsym $mod+4 workspace $ws4
-bindsym $mod+5 workspace $ws5
-bindsym $mod+6 workspace $ws6
-bindsym $mod+7 workspace $ws7
-bindsym $mod+8 workspace $ws8
-bindsym $mod+9 workspace $ws9
-bindsym $mod+0 workspace $ws10
+bindsym $super+1 workspace $ws1
+bindsym $super+2 workspace $ws2
+bindsym $super+3 workspace $ws3
+bindsym $super+4 workspace $ws4
+bindsym $super+5 workspace $ws5
+bindsym $super+6 workspace $ws6
+bindsym $super+7 workspace $ws7
+bindsym $super+8 workspace $ws8
+bindsym $super+9 workspace $ws9
+bindsym $super+0 workspace $ws10
+bindsym $lalt+1 workspace $ws1
+bindsym $lalt+2 workspace $ws2
+bindsym $lalt+3 workspace $ws3
+bindsym $lalt+4 workspace $ws4
+bindsym $lalt+5 workspace $ws5
+bindsym $lalt+6 workspace $ws6
+bindsym $lalt+7 workspace $ws7
+bindsym $lalt+8 workspace $ws8
+bindsym $lalt+9 workspace $ws9
+bindsym $lalt+0 workspace $ws10
 
-bindsym $mod+Shift+1 move container to workspace $ws1
-bindsym $mod+Shift+2 move container to workspace $ws2
-bindsym $mod+Shift+3 move container to workspace $ws3
-bindsym $mod+Shift+4 move container to workspace $ws4
-bindsym $mod+Shift+5 move container to workspace $ws5
-bindsym $mod+Shift+6 move container to workspace $ws6
-bindsym $mod+Shift+7 move container to workspace $ws7
-bindsym $mod+Shift+8 move container to workspace $ws8
-bindsym $mod+Shift+9 move container to workspace $ws9
-bindsym $mod+Shift+0 move container to workspace $ws10
+bindsym $super+Shift+1 move container to workspace $ws1
+bindsym $super+Shift+2 move container to workspace $ws2
+bindsym $super+Shift+3 move container to workspace $ws3
+bindsym $super+Shift+4 move container to workspace $ws4
+bindsym $super+Shift+5 move container to workspace $ws5
+bindsym $super+Shift+6 move container to workspace $ws6
+bindsym $super+Shift+7 move container to workspace $ws7
+bindsym $super+Shift+8 move container to workspace $ws8
+bindsym $super+Shift+9 move container to workspace $ws9
+bindsym $super+Shift+0 move container to workspace $ws10
+bindsym $lalt+Shift+1 move container to workspace $ws1
+bindsym $lalt+Shift+2 move container to workspace $ws2
+bindsym $lalt+Shift+3 move container to workspace $ws3
+bindsym $lalt+Shift+4 move container to workspace $ws4
+bindsym $lalt+Shift+5 move container to workspace $ws5
+bindsym $lalt+Shift+6 move container to workspace $ws6
+bindsym $lalt+Shift+7 move container to workspace $ws7
+bindsym $lalt+Shift+8 move container to workspace $ws8
+bindsym $lalt+Shift+9 move container to workspace $ws9
+bindsym $lalt+Shift+0 move container to workspace $ws10
 
-bindsym $mod+Tab focus next
-bindsym $mod+Shift+Tab focus prev
-bindsym Mod1+Tab workspace next
-bindsym Mod1+Shift+Tab workspace prev
+bindsym $super+Tab focus next
+bindsym $super+Shift+Tab focus prev
+bindsym $lalt+Tab workspace next
+bindsym $lalt+Shift+Tab workspace prev
 
 # Audio
-bindsym $mod+minus exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%-
-bindsym $mod+equal exec wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 10%+
-bindsym $mod+bracketleft exec mic-toggle
+bindsym $super+minus exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%-
+bindsym $super+equal exec wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 10%+
+bindsym $super+bracketleft exec mic-toggle
 
 # Screenshots
-bindsym $mod+Shift+s exec sh -c 'grim -g "$(slurp)" - | wl-copy'
+bindsym $super+Shift+s exec sh -c 'grim -g "$(slurp)" - | wl-copy'
