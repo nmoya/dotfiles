@@ -15,6 +15,7 @@ let
     audioInputs = with pkgs; [ pulseaudio gnugrep coreutils ];
     hardwareStatsInputs = with pkgs; [ coreutils ];
     powerMenuInputs = [ styledWmenu ] ++ (with pkgs; [ sway systemd ]);
+    iplayedInputs = [ uv ]
 in
 {
     home.username = "nmoya";
@@ -59,6 +60,7 @@ in
         (customScript "audio-status" audioInputs)
         (customScript "hardware-stats" hardwareStatsInputs)
         (customScript "power-menu" powerMenuInputs)
+        (customScript "iplayed" iplayedInputs)
     ];
 
     xdg.configFile."sway/config".source = ./.config/sway/config;

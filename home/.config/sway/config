@@ -5,6 +5,10 @@ include /etc/sway/config.d/*
 set $mod Mod4
 set $term alacritty
 set $menu styled-wmenu-run
+
+# Automount external hardrives
+exec udiskie --automount --notify
+
 exec display-daily
 exec waybar
 workspace_layout tabbed
