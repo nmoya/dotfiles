@@ -136,6 +136,17 @@
         bluetui # TUI for bluetooth management
         wiremix # TUI tool to configure sound output / input
         tree
+        ffmpeg # video editor
+
+        # file manager
+        udiskie # Auto mount for external disks
+        yazi # File manager TUI
+        jq # JSON Preview
+        poppler # PDF Preview
+        fd # File search
+        ripgrep # Content search
+        fzf # subtree navigation
+        imagemagick # image preview and editor
     ];
 
     # This value determines the NixOS release from which the default
