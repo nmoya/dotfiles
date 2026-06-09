@@ -23,7 +23,8 @@ in
     home.packages = with pkgs; [
         # Sway specific
         alacritty # terminal emulator super + enter opens a terminal
-        wmenu # application launcher super + d opens wmenu
+        fuzzel # application launcher super + d opens fuzzel
+        wmenu # custom menus
         waybar # status bar for sway
         swaybg # set a background image for sway
         grim # screenshot tool for sway
@@ -65,8 +66,33 @@ in
 
     xdg.configFile."sway/config".source = ./.config/sway/config;
     xdg.configFile."alacritty/alacritty.toml".source = ./.config/alacritty/alacritty.toml;
+    xdg.configFile."fuzzel/fuzzel.ini".source = ./.config/fuzzel/fuzzel.ini;
     xdg.configFile."waybar/config".source = ./.config/waybar/config;
     xdg.configFile."waybar/style.css".source = ./.config/waybar/style.css;
+
+    xdg.desktopEntries.iplayed = {
+        name = "iplayed";
+        exec = "iplayed";
+        terminal = false;
+        type = "Application";
+        categories = [ "Game" ];
+    };
+
+    xdg.desktopEntries.display-menu = {
+        name = "Display Menu";
+        exec = "display-menu";
+        terminal = false;
+        type = "Application";
+        categories = [ "Settings" ];
+    };
+
+    xdg.desktopEntries.power-menu = {
+        name = "Power Menu";
+        exec = "power-menu";
+        terminal = false;
+        type = "Application";
+        categories = [ "System" ];
+    };
 
     home.stateVersion = "26.05";
 }
