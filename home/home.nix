@@ -64,6 +64,7 @@ in
     ];
 
     xdg.configFile."sway/config".source = ./.config/sway/config;
+    xdg.configFile."alacritty/alacritty.toml".source = ./.config/alacritty/alacritty.toml;
     xdg.configFile."waybar/config".source = ./.config/waybar/config;
     xdg.configFile."waybar/style.css".source = ./.config/waybar/style.css;
 

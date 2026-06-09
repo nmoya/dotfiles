@@ -49,6 +49,7 @@ bindsym $super+Shift+Up move up
 bindsym $super+Shift+Down move down
 
 bindsym $super+Shift+q kill
+bindsym $lalt+Shift+q kill
 
 # Focus
 bindsym $super+Left focus left
@@ -120,6 +121,14 @@ bindsym $super+Tab focus next
 bindsym $super+Shift+Tab focus prev
 bindsym $lalt+Tab workspace next
 bindsym $lalt+Shift+Tab workspace prev
+
+# Window grid snap
+bindsym $super+u floating enable, resize set width 50 ppt height 100 ppt, move position 0 ppt 0 ppt
+bindsym $super+i floating enable, resize set width 50 ppt height 50 ppt, move position 0 ppt 0 ppt
+bindsym $super+o floating enable, resize set width 50 ppt height 50 ppt, move position 50 ppt 0 ppt
+bindsym $super+k floating enable, resize set width 50 ppt height 50 ppt, move position 0 ppt 50 ppt
+bindsym $super+l floating enable, resize set width 50 ppt height 50 ppt, move position 50 ppt 50 ppt
+bindsym $super+p floating enable, resize set width 50 ppt height 100 ppt, move position 50 ppt 0 ppt
 
 # Audio
 bindsym $super+minus exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%-
