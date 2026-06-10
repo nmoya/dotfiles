@@ -26,6 +26,7 @@ alias cda="cd ./app/src/main/assets/"
 alias c="pbcopy"
 alias p="pbpaste"
 alias android-studio="/usr/bin/android-studio/bin/studio.sh"
+alias open='setsid -f alacritty --class yazi --working-directory "$PWD" -e yazi "$PWD" >/dev/null 2>&1'
 alias ra144678="ssh ra144678@ssh.students.ic.unicamp.br"
 alias sms="python ~/Dropbox/Personal/Softwares/sendSMS.py"
 alias urldiff="python ~/Dropbox/Personal/Softwares/urlDiff.py"
