@@ -1,0 +1,14 @@
+include "%L"
+
+<dead_acute> <c> : "ç" ccedilla
+<dead_acute> <C> : "Ç" Ccedilla
+<dead_acute> <m> : "'m"
+<dead_acute> <M> : "'M"
+<dead_acute> <s> : "'s"
+<dead_acute> <S> : "'S"
+<dead_acute> <d> : "'d"
+<dead_acute> <D> : "'D"
+<dead_acute> <t> : "'t"
+<dead_acute> <T> : "'T"
+<dead_acute> <n> : "'n"
+<dead_acute> <N> : "'N"

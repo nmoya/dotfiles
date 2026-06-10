@@ -70,6 +70,16 @@ in
     xdg.configFile."waybar/config".source = ./.config/waybar/config;
     xdg.configFile."waybar/style.css".source = ./.config/waybar/style.css;
 
+    home.sessionVariables.XCOMPOSEFILE = "${config.home.homeDirectory}/.XCompose";
+    home.file.".XCompose".source = ./.XCompose;
+    home.file.".bash_profile".source = ./.bash_profile;
+    home.file.".zshrc".source = ./.zshrc;
+    home.file.".emacs".source = ./.emacs;
+    home.file.".gitconfig".source = ./.gitconfig;
+    home.file.".inputrc".source = ./.inputrc;
+    home.file.".bashrc".source = ./.bashrc;
+    home.file.".vimrc".source = ./.vimrc;
+
     xdg.desktopEntries.iplayed = {
         name = "iplayed";
         exec = "iplayed";
