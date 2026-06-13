@@ -138,6 +138,8 @@
         tree
         ffmpeg # video editor
 
+        nvd # nixos package diff tool
+
         # file manager
         udiskie # Auto mount for external disks
         yazi # File manager TUI
