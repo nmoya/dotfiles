@@ -16,6 +16,13 @@
     # Nixpkgs
     nixpkgs.config.allowUnfree = true;
 
+    # Nix store garbage collection
+    nix.gc = {
+        automatic = true;
+        dates = "weekly";
+        options = "--delete-older-than 30d";
+    };
+
     # Networking
     networking.hostName = "nixos";
     networking.networkmanager.enable = true;
@@ -159,4 +166,3 @@
     # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
     system.stateVersion = "26.05"; # Did you read the comment?
 }
-
