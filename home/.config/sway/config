@@ -26,8 +26,12 @@ input type:keyboard {
 bindsym $super+Return exec $term
 bindsym $super+d exec $menu
 
+# Menus
+bindsym $super+Ctrl+comma exec display-menu
+bindsym $super+Ctrl+period exec power-menu
+
+
 # Display profiles
-bindsym $super+Ctrl+d exec display-menu
 bindsym $super+Ctrl+1 exec display-daily
 bindsym $super+Ctrl+2 exec display-monitor-gaming
 bindsym $super+Ctrl+3 exec display-mirror-casual

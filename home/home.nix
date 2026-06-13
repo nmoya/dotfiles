@@ -9,12 +9,12 @@ let
     styledWmenuRun = customScript "styled-wmenu-run" (with pkgs; [ wmenu ]);
     swayDisplayInputs = with pkgs; [ sway procps ];
     swayMirrorInputs = with pkgs; [ sway procps util-linux coreutils wl-mirror ];
-    displayMenuInputs = [ styledWmenu ];
+    displayMenuInputs = with pkgs; [ fuzzel ];
     displayStatusInputs = [ ];
     micInputs = with pkgs; [ pulseaudio gnugrep ];
     audioInputs = with pkgs; [ pulseaudio gnugrep coreutils ];
     hardwareStatsInputs = with pkgs; [ coreutils ];
-    powerMenuInputs = [ styledWmenu ] ++ (with pkgs; [ sway systemd ]);
+    powerMenuInputs = with pkgs; [ fuzzel sway systemd ];
     iplayedInputs = with pkgs; [ uv alacritty ];
 in
 {

@@ -7,7 +7,7 @@ choice="$({
     printf '%s\n' 'mirror casual'
     printf '%s\n' 'mirror gaming'
     printf '%s\n' 'tv gaming'
-} | styled-wmenu -p 'Display profile:')" || exit 0
+} | fuzzel --dmenu --no-exit-on-keyboard-focus-loss --prompt 'Display profile: ')" || exit 0
 
 case "$choice" in
     'daily') display-daily ;;
