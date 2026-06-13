@@ -11,7 +11,6 @@ set $menu fuzzel
 exec udiskie --automount --notify
 
 exec display-daily
-exec waybar
 workspace_layout default
 # Decides horizontal/vertical split based on container size
 default_orientation auto

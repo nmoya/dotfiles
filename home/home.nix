@@ -104,5 +104,21 @@ in
         categories = [ "System" ];
     };
 
+    systemd.user.services.waybar = {
+        Unit = {
+            Description = "Waybar";
+            PartOf = [ "sway-session.target" ];
+            After = [ "sway-session.target" ];
+        };
+
+        Service = {
+            ExecStart = "${pkgs.waybar}/bin/waybar";
+            Restart = "always";
+            RestartSec = 1;
+        };
+
+        Install.WantedBy = [ "sway-session.target" ];
+    };
+
     home.stateVersion = "26.05";
 }
