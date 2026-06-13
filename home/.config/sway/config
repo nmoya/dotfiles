@@ -96,26 +96,26 @@ bindsym $lalt+8 workspace $ws8
 bindsym $lalt+9 workspace $ws9
 bindsym $lalt+0 workspace $ws10
 
-bindsym $super+Shift+1 move container to workspace $ws1
-bindsym $super+Shift+2 move container to workspace $ws2
-bindsym $super+Shift+3 move container to workspace $ws3
-bindsym $super+Shift+4 move container to workspace $ws4
-bindsym $super+Shift+5 move container to workspace $ws5
-bindsym $super+Shift+6 move container to workspace $ws6
-bindsym $super+Shift+7 move container to workspace $ws7
-bindsym $super+Shift+8 move container to workspace $ws8
-bindsym $super+Shift+9 move container to workspace $ws9
-bindsym $super+Shift+0 move container to workspace $ws10
-bindsym $lalt+Shift+1 move container to workspace $ws1
-bindsym $lalt+Shift+2 move container to workspace $ws2
-bindsym $lalt+Shift+3 move container to workspace $ws3
-bindsym $lalt+Shift+4 move container to workspace $ws4
-bindsym $lalt+Shift+5 move container to workspace $ws5
-bindsym $lalt+Shift+6 move container to workspace $ws6
-bindsym $lalt+Shift+7 move container to workspace $ws7
-bindsym $lalt+Shift+8 move container to workspace $ws8
-bindsym $lalt+Shift+9 move container to workspace $ws9
-bindsym $lalt+Shift+0 move container to workspace $ws10
+bindsym $super+Shift+1 move container to workspace $ws1, workspace $ws1
+bindsym $super+Shift+2 move container to workspace $ws2, workspace $ws2
+bindsym $super+Shift+3 move container to workspace $ws3, workspace $ws3
+bindsym $super+Shift+4 move container to workspace $ws4, workspace $ws4
+bindsym $super+Shift+5 move container to workspace $ws5, workspace $ws5
+bindsym $super+Shift+6 move container to workspace $ws6, workspace $ws6
+bindsym $super+Shift+7 move container to workspace $ws7, workspace $ws7
+bindsym $super+Shift+8 move container to workspace $ws8, workspace $ws8
+bindsym $super+Shift+9 move container to workspace $ws9, workspace $ws9
+bindsym $super+Shift+0 move container to workspace $ws10, workspace $ws10
+bindsym $lalt+Shift+1 move container to workspace $ws1, workspace $ws1
+bindsym $lalt+Shift+2 move container to workspace $ws2, workspace $ws2
+bindsym $lalt+Shift+3 move container to workspace $ws3, workspace $ws3
+bindsym $lalt+Shift+4 move container to workspace $ws4, workspace $ws4
+bindsym $lalt+Shift+5 move container to workspace $ws5, workspace $ws5
+bindsym $lalt+Shift+6 move container to workspace $ws6, workspace $ws6
+bindsym $lalt+Shift+7 move container to workspace $ws7, workspace $ws7
+bindsym $lalt+Shift+8 move container to workspace $ws8, workspace $ws8
+bindsym $lalt+Shift+9 move container to workspace $ws9, workspace $ws9
+bindsym $lalt+Shift+0 move container to workspace $ws10, workspace $ws10
 
 bindsym $super+Tab focus next
 bindsym $super+Shift+Tab focus prev
@@ -129,6 +129,7 @@ bindsym $super+o floating enable, resize set width 50 ppt height 50 ppt, move po
 bindsym $super+k floating enable, resize set width 50 ppt height 50 ppt, move position 0 ppt 50 ppt
 bindsym $super+l floating enable, resize set width 50 ppt height 50 ppt, move position 50 ppt 50 ppt
 bindsym $super+p floating enable, resize set width 50 ppt height 100 ppt, move position 50 ppt 0 ppt
+bindsym $super+Shift+f floating disable
 
 # Audio
 bindsym $super+minus exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%-
