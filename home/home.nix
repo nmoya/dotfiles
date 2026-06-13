@@ -5,8 +5,6 @@ let
         inherit name runtimeInputs;
         text = builtins.readFile ./.tool_scripts/${name};
     };
-    styledWmenu = customScript "styled-wmenu" (with pkgs; [ wmenu ]);
-    styledWmenuRun = customScript "styled-wmenu-run" (with pkgs; [ wmenu ]);
     swayDisplayInputs = with pkgs; [ sway procps ];
     swayMirrorInputs = with pkgs; [ sway procps util-linux coreutils wl-mirror ];
     displayMenuInputs = with pkgs; [ fuzzel ];
@@ -24,7 +22,6 @@ in
         # Sway specific
         alacritty # terminal emulator super + enter opens a terminal
         fuzzel # application launcher super + d opens fuzzel
-        wmenu # custom menus
         waybar # status bar for sway
         swaybg # set a background image for sway
         grim # screenshot tool for sway
@@ -48,8 +45,6 @@ in
         uv
 
         # Custom scripts
-        styledWmenu
-        styledWmenuRun
         (customScript "display-daily" swayDisplayInputs)
         (customScript "display-monitor-gaming" swayDisplayInputs)
         (customScript "display-tv-gaming" swayDisplayInputs)
