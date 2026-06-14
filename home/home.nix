@@ -35,6 +35,7 @@ in
         opencode # TUI client for LLMs
         vesktop # open source client for discord
         vscode # Text editor
+        github-desktop # GUI client for github
         spotify # Sound player
         godot # Gamedev engine
         bazecor # Keyboard configuration tool

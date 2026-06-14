@@ -20,6 +20,7 @@
             "class<org.telegram.desktop>": "",
             "class<steam>": "",
             "class<Godot>": "",
+            "class<github-desktop>": "",
             "class<org.gnome.Nautilus>": "󰉋",
             "class<org.gnome.Calculator>": "",
             "class<org.gnome.Calendar>": "󰃭",
