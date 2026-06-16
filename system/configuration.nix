@@ -15,6 +15,7 @@
     
     # Nixpkgs
     nixpkgs.config.allowUnfree = true;
+    nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
     # Nix store garbage collection
     nix.gc = {
