@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 
 let
+    localVpinball = pkgs.callPackage /home/nmoya/Projects/nixpkgs/pkgs/by-name/vp/vpinball/package.nix { };
     customScript = name: runtimeInputs: pkgs.writeShellApplication {
         inherit name runtimeInputs;
         text = builtins.readFile ./.tool_scripts/${name};
@@ -14,6 +15,7 @@ let
     hardwareStatsInputs = with pkgs; [ coreutils ];
     powerMenuInputs = with pkgs; [ fuzzel sway systemd ];
     iplayedInputs = with pkgs; [ uv alacritty ];
+    vpinballMenuInputs = with pkgs; [ fuzzel ];
 in
 {
     home.username = "nmoya";
@@ -31,6 +33,9 @@ in
         wl-mirror
         procps
         util-linux
+
+        # visual pinball # eventually replace to vpinball when the PR is merged
+        localVpinball
 
         opencode # TUI client for LLMs
         vesktop # open source client for discord
@@ -58,6 +63,7 @@ in
         (customScript "hardware-stats" hardwareStatsInputs)
         (customScript "power-menu" powerMenuInputs)
         (customScript "iplayed" iplayedInputs)
+        (customScript "vpinball-menu" vpinballMenuInputs)
     ];
 
     xdg.configFile."sway/config".source = ./.config/sway/config;
@@ -98,6 +104,14 @@ in
         terminal = false;
         type = "Application";
         categories = [ "System" ];
+    };
+
+    xdg.desktopEntries.vpinball-menu = {
+        name = "VPinball";
+        exec = "vpinball-menu";
+        terminal = false;
+        type = "Application";
+        categories = [ "Game" ];
     };
 
     systemd.user.services.waybar = {
