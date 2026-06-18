@@ -74,8 +74,6 @@ in
 
     home.sessionVariables.XCOMPOSEFILE = "${config.home.homeDirectory}/.XCompose";
     home.file.".XCompose".source = ./.XCompose;
-    home.file.".bash_profile".source = ./.bash_profile;
-    home.file.".zshrc".source = ./.zshrc;
     home.file.".emacs".source = ./.emacs;
     home.file.".gitconfig".source = ./.gitconfig;
     home.file.".inputrc".source = ./.inputrc;
