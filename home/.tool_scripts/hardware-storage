@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+read -r used_bytes available_bytes total_bytes percent mounted_on < <(
+    df --output=used,avail,size,pcent,target -B1 / | awk 'NR == 2 { print $1, $2, $3, $4, $5 }'
+)
+
+percent="${percent//[^0-9]/}"
+used_gb=$(((used_bytes + 536870912) / 1073741824))
+available_gb=$(((available_bytes + 536870912) / 1073741824))
+total_gb=$(((total_bytes + 536870912) / 1073741824))
+
+text=" ${used_gb}GB ${percent}%"
+tooltip="Storage ${mounted_on}: ${used_gb} GB used (${percent}%)\\nFree: ${available_gb} GB\\nTotal: ${total_gb} GB\\nRight-click: inspect with ncdu"
+
+printf '{"text":"%s","tooltip":"%s"}\n' "$text" "$tooltip"

@@ -4,7 +4,7 @@
     "height": 29,
     "modules-left": ["sway/workspaces"],
     "modules-center": ["sway/window"],
-    "modules-right": ["custom/display", "custom/hardware", "custom/bluetooth", "custom/audio", "network", "clock", "custom/power"],
+    "modules-right": ["custom/display", "custom/hardware-cpu", "custom/hardware-gpu", "custom/hardware-ram", "custom/hardware-storage", "custom/hardware-network", "custom/bluetooth", "custom/audio", "clock", "custom/power"],
     "sway/workspaces": {
         "disable-scroll": true,
         "all-outputs": true,
@@ -70,18 +70,37 @@
         "tooltip": true,
         "on-click": "display-menu"
     },
-    "custom/hardware": {
-        "exec": "hardware-stats",
+    "custom/hardware-cpu": {
+        "exec": "hardware-cpu",
         "interval": 2,
         "return-type": "json",
+        "tooltip": true
+    },
+    "custom/hardware-gpu": {
+        "exec": "hardware-gpu",
+        "interval": 2,
+        "return-type": "json",
+        "tooltip": true
+    },
+    "custom/hardware-ram": {
+        "exec": "hardware-ram",
+        "interval": 2,
+        "return-type": "json",
+        "tooltip": true
+    },
+    "custom/hardware-storage": {
+        "exec": "hardware-storage",
+        "interval": 10,
+        "return-type": "json",
         "tooltip": true,
+        "on-click": "alacritty -e ncdu -x /",
         "on-click-right": "alacritty -e ncdu -x /"
     },
-    "network": {
-        "format-wifi": "󰖩",
-        "format-disconnected": "󰖪",
-        "tooltip-format-wifi": "Wi-Fi connected: {essid}",
-        "tooltip-format-disconnected": "Wi-Fi disconnected",
+    "custom/hardware-network": {
+        "exec": "hardware-network",
+        "interval": 1,
+        "return-type": "json",
+        "tooltip": true,
         "on-click": "sh -c 'nmcli device wifi rescan; alacritty -e nmtui'",
         "on-click-right": "sh -c 'nmcli device wifi rescan; alacritty -e nmtui'"
     },

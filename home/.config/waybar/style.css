@@ -36,13 +36,16 @@ window#waybar {
     color: #d1d5db;
 }
 #clock,
-#network,
 #custom-display,
-#custom-hardware,
+#custom-hardware-cpu,
+#custom-hardware-gpu,
+#custom-hardware-ram,
+#custom-hardware-storage,
+#custom-hardware-network,
 #custom-bluetooth,
 #custom-audio,
 #custom-power {
-    padding: 0 12px;
+    padding: 0 10px;
     margin: 4px 4px;
     background: #111827;
     color: #e5e7eb;
@@ -51,14 +54,29 @@ window#waybar {
 #custom-display {
     color: #93c5fd;
 }
-#custom-hardware {
+#custom-hardware-cpu {
     color: #c4b5fd;
+    background: #1f1b33;
 }
-#network {
-    color: #22c55e;
+#custom-hardware-gpu {
+    color: #f0abfc;
+    background: #2a1733;
 }
-#network.disconnected {
+#custom-hardware-ram {
+    color: #67e8f9;
+    background: #102a35;
+}
+#custom-hardware-storage {
+    color: #fdba74;
+    background: #2f2115;
+}
+#custom-hardware-network {
+    color: #86efac;
+    background: #102617;
+}
+#custom-hardware-network.disconnected {
     color: #f87171;
+    background: #2f1618;
 }
 #custom-bluetooth {
     color: #60a5fa;

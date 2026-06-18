@@ -12,7 +12,7 @@ let
     displayStatusInputs = [ ];
     micInputs = with pkgs; [ pulseaudio gnugrep ];
     audioInputs = with pkgs; [ pulseaudio gnugrep coreutils ];
-    hardwareStatsInputs = with pkgs; [ coreutils ];
+    hardwareStatsInputs = with pkgs; [ coreutils gawk ];
     powerMenuInputs = with pkgs; [ fuzzel sway systemd ];
     iplayedInputs = with pkgs; [ uv alacritty ];
     vpinballMenuInputs = with pkgs; [ fuzzel ];
@@ -60,7 +60,11 @@ in
         (customScript "display-status" displayStatusInputs)
         (customScript "mic-toggle" micInputs)
         (customScript "audio-status" audioInputs)
-        (customScript "hardware-stats" hardwareStatsInputs)
+        (customScript "hardware-cpu" hardwareStatsInputs)
+        (customScript "hardware-gpu" hardwareStatsInputs)
+        (customScript "hardware-ram" hardwareStatsInputs)
+        (customScript "hardware-storage" hardwareStatsInputs)
+        (customScript "hardware-network" hardwareStatsInputs)
         (customScript "power-menu" powerMenuInputs)
         (customScript "iplayed" iplayedInputs)
         (customScript "vpinball-menu" vpinballMenuInputs)

@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+interface=""
+while read -r iface destination _ flags _; do
+    if [[ "$destination" == "00000000" && $((16#$flags & 2)) -ne 0 ]]; then
+        interface="$iface"
+        break
+    fi
+done < /proc/net/route
+
+if [[ -z "$interface" ]]; then
+    printf '{"text":"󰖪 offline","tooltip":"Network disconnected","class":"disconnected"}\n'
+    exit 0
+fi
+
+rx_bytes=0
+tx_bytes=0
+while IFS=': ' read -r iface rx _ _ _ _ _ _ _ tx _; do
+    if [[ "$iface" == "$interface" ]]; then
+        rx_bytes="$rx"
+        tx_bytes="$tx"
+        break
+    fi
+done < /proc/net/dev
+
+state_dir="${XDG_RUNTIME_DIR:-/tmp}"
+state_file="${state_dir}/waybar-network-${UID}-${interface}.state"
+now_ns="$(date +%s%N)"
+down_mbps="0.0"
+up_mbps="0.0"
+
+if [[ -r "$state_file" ]] && read -r prev_ns prev_rx prev_tx < "$state_file"; then
+    elapsed_ns=$((now_ns - prev_ns))
+    rx_delta=$((rx_bytes - prev_rx))
+    tx_delta=$((tx_bytes - prev_tx))
+
+    if [[ "$elapsed_ns" -gt 0 && "$rx_delta" -ge 0 && "$tx_delta" -ge 0 ]]; then
+        down_mbps="$(awk -v bytes="$rx_delta" -v ns="$elapsed_ns" 'BEGIN { printf "%.1f", (bytes * 8 * 1000) / ns }')"
+        up_mbps="$(awk -v bytes="$tx_delta" -v ns="$elapsed_ns" 'BEGIN { printf "%.1f", (bytes * 8 * 1000) / ns }')"
+    fi
+fi
+
+printf '%s %s %s\n' "$now_ns" "$rx_bytes" "$tx_bytes" > "$state_file"
+
+text="󰖩  ${up_mbps}Mb/s  ${down_mbps}Mb/s"
+tooltip="Network: ${interface}\\nUpload: ${up_mbps} Mb/s\\nDownload: ${down_mbps} Mb/s\\nClick: open nmtui"
+
+printf '{"text":"%s","tooltip":"%s"}\n' "$text" "$tooltip"

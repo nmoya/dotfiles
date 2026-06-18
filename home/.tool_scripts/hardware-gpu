@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+nvidia_smi="${NVIDIA_SMI:-/run/current-system/sw/bin/nvidia-smi}"
+if [[ ! -x "$nvidia_smi" ]]; then
+    printf '{"text":"󰢮 n/a","tooltip":"GPU telemetry unavailable"}\n'
+    exit 0
+fi
+
+IFS=',' read -r gpu_percent mem_used mem_total gpu_temp power_w power_limit gpu_name < <(
+    "$nvidia_smi" --query-gpu=utilization.gpu,memory.used,memory.total,temperature.gpu,power.draw,power.limit,name --format=csv,noheader,nounits | {
+        IFS= read -r first_gpu
+        printf '%s\n' "$first_gpu"
+    }
+)
+
+gpu_percent="${gpu_percent// /}"
+mem_used="${mem_used// /}"
+mem_total="${mem_total// /}"
+gpu_temp="${gpu_temp// /}"
+power_w="${power_w// /}"
+power_limit="${power_limit// /}"
+gpu_name="${gpu_name# }"
+
+if [[ "$mem_total" =~ ^[0-9]+$ && "$mem_total" -gt 0 ]]; then
+    mem_percent=$((mem_used * 100 / mem_total))
+else
+    mem_percent=0
+fi
+
+power_display="$(awk -v watts="$power_w" 'BEGIN { if (watts + 0 > 0) printf "%.0f", watts; else printf "0" }')"
+power_limit_display="$(awk -v watts="$power_limit" 'BEGIN { if (watts + 0 > 0) printf "%.0f", watts; else printf "0" }')"
+
+text="󰢮 ${gpu_percent}% ${gpu_temp}°C ${mem_percent}% ${power_display}W"
+tooltip="GPU: ${gpu_name}\\nUsage: ${gpu_percent}%\\nTemperature: ${gpu_temp}°C\\nVRAM: ${mem_used} / ${mem_total} MiB (${mem_percent}%)\\nPower: ${power_display} / ${power_limit_display} W"
+
+printf '{"text":"%s","tooltip":"%s"}\n' "$text" "$tooltip"
