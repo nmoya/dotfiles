@@ -39,9 +39,6 @@ alias ls="ls -G"
 alias cd..="cd .."
 alias cdr="cd ~/Repos"
 alias ra144678="ssh ra144678@ssh.students.ic.unicamp.br"
-alias urldiff="python ~/Dropbox/Personal/Softwares/urlDiff.py"
-alias simplehttpserver="python -m SimpleHTTPServer"
-alias adb="~/Library/Android/sdk/platform-tools/adb"
 alias gitpurge='git branch --merged | grep -v "\*" | grep -v "master" | grep -v "develop" | grep -v "staging" | xargs -n 1 git branch -d'
 alias gitpurgeexceptmaster='git branch | egrep -v "(master|\*)" | xargs git branch -D'
 alias gcm="git checkout master"
@@ -49,9 +46,6 @@ alias gpr="git pull --rebase"
 alias grc="git rebase --continue"
 alias grm="git rebase master"
 alias lynx="lynx -accept_all_cookies" 
-alias code="/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code"
-alias vscode="/usr/bin/code"
-alias code="/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code"
 alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 
 
