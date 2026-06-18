@@ -2,17 +2,17 @@
 set -euo pipefail
 
 choice="$({
-    printf '%s\n' 'daily'
-    printf '%s\n' 'monitor gaming'
-    printf '%s\n' 'mirror casual'
-    printf '%s\n' 'mirror gaming'
-    printf '%s\n' 'tv gaming'
+    printf '%s\n' '4k@240 1.5x'
+    printf '%s\n' '4k@240 1x'
+    printf '%s\n' 'mirror 4k@120 1.5x'
+    printf '%s\n' 'mirror 4k@120 1x'
+    printf '%s\n' 'tv 4k@120 1x'
 } | fuzzel --dmenu --no-exit-on-keyboard-focus-loss --prompt 'Display profile: ')" || exit 0
 
 case "$choice" in
-    'daily') display-daily ;;
-    'monitor gaming') display-monitor-gaming ;;
-    'mirror casual') display-mirror-casual ;;
-    'mirror gaming') display-mirror-gaming ;;
-    'tv gaming') display-tv-gaming ;;
+    '4k@240 1.5x') display-4k-240-1.5x ;;
+    '4k@240 1x') display-4k-240-1x ;;
+    'mirror 4k@120 1.5x') display-mirror-4k-120-1.5x ;;
+    'mirror 4k@120 1x') display-mirror-4k-120-1x ;;
+    'tv 4k@120 1x') display-tv-4k-120-1x ;;
 esac

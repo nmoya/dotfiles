@@ -51,11 +51,11 @@ in
         uv
 
         # Custom scripts
-        (customScript "display-daily" swayDisplayInputs)
-        (customScript "display-monitor-gaming" swayDisplayInputs)
-        (customScript "display-tv-gaming" swayDisplayInputs)
-        (customScript "display-mirror-casual" swayMirrorInputs)
-        (customScript "display-mirror-gaming" swayMirrorInputs)
+        (customScript "display-4k-240-1.5x" swayDisplayInputs)
+        (customScript "display-4k-240-1x" swayDisplayInputs)
+        (customScript "display-tv-4k-120-1x" swayDisplayInputs)
+        (customScript "display-mirror-4k-120-1.5x" swayMirrorInputs)
+        (customScript "display-mirror-4k-120-1x" swayMirrorInputs)
         (customScript "display-menu" displayMenuInputs)
         (customScript "display-status" displayStatusInputs)
         (customScript "mic-toggle" micInputs)
