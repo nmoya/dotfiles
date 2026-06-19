@@ -50,6 +50,8 @@ in
         python314
         uv
 
+        ffmpeg
+
         # Custom scripts
         (customScript "display-4k-240-1.5x" swayDisplayInputs)
         (customScript "display-4k-240-1x" swayDisplayInputs)
