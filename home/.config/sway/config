@@ -16,6 +16,12 @@ workspace_layout default
 default_orientation auto
 default_border pixel 2
 default_floating_border pixel 2
+
+# Keep the Godot editor tiled, but allow debug/game windows to be moved.
+for_window [app_id="Godot"] floating disable
+for_window [class="Godot"] floating disable
+for_window [instance="Godot_Engine"] floating enable, border normal
+
 # Mouse and Keyboard
 seat seat0 xcursor_theme Adwaita 24
 input type:keyboard {
