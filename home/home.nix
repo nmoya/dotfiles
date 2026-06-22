@@ -59,6 +59,7 @@ in
         (customScript "display-mirror-4k-120-1.5x" swayMirrorInputs)
         (customScript "display-mirror-4k-120-1x" swayMirrorInputs)
         (customScript "display-menu" displayMenuInputs)
+        (customScript "display-restore" swayDisplayInputs)
         (customScript "display-status" displayStatusInputs)
         (customScript "mic-toggle" micInputs)
         (customScript "audio-status" audioInputs)

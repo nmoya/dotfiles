@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+state_file="${XDG_RUNTIME_DIR:-/tmp}/display-profile"
+
+if [[ -r "$state_file" ]]; then
+    profile="$(<"$state_file")"
+else
+    profile="4k@240 1x"
+fi
+
+case "$profile" in
+    '4k@240 1.5x') display-4k-240-1.5x ;;
+    '4k@240 1x') display-4k-240-1x ;;
+    'mirror 4k@120 1.5x') display-mirror-4k-120-1.5x ;;
+    'mirror 4k@120 1x') display-mirror-4k-120-1x ;;
+    'tv 4k@120 1x') display-tv-4k-120-1x ;;
+    *) display-4k-240-1x ;;
+esac
