@@ -10,7 +10,7 @@ set $menu fuzzel
 # Automount external hardrives
 exec udiskie --automount --notify
 
-exec display-4k-240-1.5x
+exec display-4k-240-1x
 workspace_layout default
 # Decides horizontal/vertical split based on container size
 default_orientation auto

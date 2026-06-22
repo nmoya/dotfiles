@@ -1,7 +1,7 @@
 {
     "layer": "top",
     "position": "top",
-    "height": 29,
+    "height": 34,
     "modules-left": ["sway/workspaces"],
     "modules-center": ["sway/window"],
     "modules-right": ["custom/display", "custom/hardware-cpu", "custom/hardware-gpu", "custom/hardware-ram", "custom/hardware-storage", "custom/hardware-network", "custom/bluetooth", "custom/audio", "clock", "custom/power"],
