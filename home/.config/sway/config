@@ -59,7 +59,7 @@ bindsym $super+Shift+Up move up
 bindsym $super+Shift+Down move down
 
 bindsym $super+Shift+q kill
-bindsym $lalt+Shift+q kill
+bindsym $lalt+q kill
 
 # Focus
 bindsym $super+Left focus left
@@ -148,3 +148,4 @@ bindsym $super+bracketleft exec mic-toggle
 
 # Screenshots
 bindsym $super+Shift+s exec sh -c 'grim -g "$(slurp)" - | wl-copy'
+bindsym $super+Shift+p exec sh -c 'grim - | wl-copy'
