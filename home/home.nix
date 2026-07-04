@@ -50,7 +50,11 @@ in
         python314
         uv
 
-        ffmpeg
+        protonplus # proton version manager
+
+        (retroarch.withCores (cores: with cores; [
+            swanstation # PS1 core
+        ]))
 
         # Custom scripts
         (customScript "display-4k-240-1.5x" swayDisplayInputs)
