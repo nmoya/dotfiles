@@ -2,11 +2,15 @@
 set -euo pipefail
 
 pkill -x wl-mirror || true
+while pgrep -x wl-mirror >/dev/null; do
+    sleep 0.1
+done
 
 swaymsg "output DP-1 enable mode 3840x2160@119.999Hz scale 1.5 position 0 0"
 swaymsg "output HDMI-A-1 enable mode 3840x2160@119.88Hz scale 1.5 position 3840 0"
 
-sleep 1
-setsid -f wl-mirror --fullscreen-output HDMI-A-1 DP-1 >/tmp/wl-mirror.log 2>&1
+sleep 2
+setsid -f wl-mirror -v -b screencopy-shm --fullscreen-output HDMI-A-1 DP-1 >/tmp/wl-mirror.log 2>&1
+swaymsg "focus output DP-1"
 
 printf '%s\n' 'mirror 4k@120 1.5x' > "${XDG_RUNTIME_DIR:-/tmp}/display-profile"

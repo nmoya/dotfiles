@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+state_file="${XDG_RUNTIME_DIR:-/tmp}/display-profile"
+profile=""
+
+if [[ -r "$state_file" ]]; then
+    profile="$(<"$state_file")"
+fi
+
+case "$profile" in
+    mirror*) exec fuzzel --output=DP-1 ;;
+    *) exec fuzzel ;;
+esac

@@ -8,6 +8,7 @@ let
     };
     swayDisplayInputs = with pkgs; [ sway procps ];
     swayMirrorInputs = with pkgs; [ sway procps util-linux coreutils wl-mirror ];
+    appMenuInputs = with pkgs; [ fuzzel ];
     displayMenuInputs = with pkgs; [ fuzzel ];
     displayStatusInputs = [ ];
     micInputs = with pkgs; [ pulseaudio gnugrep ];
@@ -62,6 +63,7 @@ in
         (customScript "display-tv-4k-120-1x" swayDisplayInputs)
         (customScript "display-mirror-4k-120-1.5x" swayMirrorInputs)
         (customScript "display-mirror-4k-120-1x" swayMirrorInputs)
+        (customScript "app-menu" appMenuInputs)
         (customScript "display-menu" displayMenuInputs)
         (customScript "display-restore" swayDisplayInputs)
         (customScript "display-status" displayStatusInputs)

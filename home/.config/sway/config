@@ -5,7 +5,7 @@ include /etc/sway/config.d/*
 set $super Mod4
 set $lalt Mod1
 set $term alacritty
-set $menu fuzzel
+set $menu app-menu
 
 # Automount external hardrives
 exec udiskie --automount --notify
