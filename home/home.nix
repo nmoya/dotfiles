@@ -90,6 +90,10 @@ in
     home.file.".inputrc".source = ./.inputrc;
     home.file.".bashrc".source = ./.bashrc;
     home.file.".vimrc".source = ./.vimrc;
+    home.file.".local/share/VPinballX/10.8/VPinballX.ini" = {
+        source = ./.local/share/VPinballX/10.8/VPinballX.ini;
+        force = true;
+    };
 
     xdg.desktopEntries.iplayed = {
         name = "iplayed";
