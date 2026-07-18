@@ -24,6 +24,6 @@
 	process = git-lfs filter-process
 [core]
 	excludesfile = /home/nmoya/.gitignore_global
-	editor = /run/current-system/sw/bin/code --wait
+	editor = /run/current-system/sw/bin/vim
 [commit]
 	template = /home/nmoya/.stCommitMsg

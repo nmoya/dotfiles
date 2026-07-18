@@ -13,6 +13,7 @@ exec udiskie --automount --notify
 exec_always display-restore
 exec_always swaybg -i /home/nmoya/Projects/dotfiles/home/.config/sway/bg.png -m fill
 workspace_layout default
+focus_on_window_activation focus
 # Decides horizontal/vertical split based on container size
 default_orientation auto
 default_border pixel 2
