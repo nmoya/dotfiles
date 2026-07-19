@@ -51,6 +51,7 @@ in
         # Python stack
         python314
         uv
+        chafa # Renders images in the terminal
 
         protonplus # proton version manager
 
