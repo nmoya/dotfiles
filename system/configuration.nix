@@ -155,6 +155,7 @@
         nvd # nixos package diff tool
 
         # file manager
+        nautilus # GNOME Files
         udiskie # Auto mount for external disks
         jq # JSON Preview
         poppler # PDF Preview

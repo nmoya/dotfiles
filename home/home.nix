@@ -17,6 +17,7 @@ let
     powerMenuInputs = with pkgs; [ fuzzel sway systemd ];
     iplayedInputs = with pkgs; [ uv alacritty ];
     vpinballMenuInputs = with pkgs; [ fuzzel ];
+    openInputs = with pkgs; [ nautilus xdg-utils ];
 in
 {
     home.username = "nmoya";
@@ -78,6 +79,7 @@ in
         (customScript "power-menu" powerMenuInputs)
         (customScript "iplayed" iplayedInputs)
         (customScript "vpinball-menu" vpinballMenuInputs)
+        (customScript "open" openInputs)
     ];
 
     xdg.configFile."sway/config".source = ./.config/sway/config;

@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if (($# != 1)); then
+    printf 'Usage: open PATH\n' >&2
+    exit 2
+fi
+
+path="$1"
+
+if [[ -d "$path" ]]; then
+    exec nautilus "$path"
+fi
+
+if [[ -f "$path" ]]; then
+    exec xdg-open "$path"
+fi
+
+printf 'open: path does not exist or is not a regular file/directory: %s\n' "$path" >&2
+exit 1
