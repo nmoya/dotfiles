@@ -156,7 +156,6 @@
 
         # file manager
         udiskie # Auto mount for external disks
-        yazi # File manager TUI
         jq # JSON Preview
         poppler # PDF Preview
         fd # File search

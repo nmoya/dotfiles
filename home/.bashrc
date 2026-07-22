@@ -13,7 +13,6 @@ alias tarbz2="tar -jcvf"
 alias cdr="cd ~/Repos"
 alias c="wl-copy"
 alias p="wl-paste"
-alias open='setsid -f alacritty --class yazi --working-directory "$PWD" -e yazi "$PWD" >/dev/null 2>&1'
 alias ra144678="ssh ra144678@ssh.students.ic.unicamp.br"
 alias gpr="git pull --rebase"
 alias grc="git rebase --continue"
