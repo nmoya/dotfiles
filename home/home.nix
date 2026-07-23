@@ -1,8 +1,7 @@
-{ config, pkgs, ... }:
+{ config, pkgs, unstablePkgs, ... }:
 
 let
-    localVpinball = pkgs.callPackage /home/nmoya/Projects/nixpkgs/pkgs/by-name/vp/vpinball/package.nix { };
-    localVpxtool = pkgs.callPackage /home/nmoya/Projects/nixpkgs/pkgs/by-name/vp/vpxtool/package.nix { };
+    localVpinball = pkgs.callPackage ../packages/vpinball/package.nix { };
     customScript = name: runtimeInputs: pkgs.writeShellApplication {
         inherit name runtimeInputs;
         text = builtins.readFile ./.tool_scripts/${name};
@@ -38,7 +37,7 @@ in
 
         # visual pinball # eventually replace to vpinball when the PR is merged
         localVpinball
-        localVpxtool
+        unstablePkgs.vpxtool
 
         opencode # TUI client for LLMs
         vesktop # open source client for discord

@@ -1,9 +1,8 @@
-{ config, pkgs, ... }:
+{ config, pkgs, unstablePkgs, ... }:
 
 {
     imports = [
         ./hardware-configuration.nix
-        <home-manager/nixos>
     ];
 
     # Bootloader
@@ -82,7 +81,10 @@
     # User & Home manager
     home-manager.useGlobalPkgs = true;
     home-manager.useUserPackages = true;
-    home-manager.users.nmoya = import /home/nmoya/Projects/dotfiles/home/home.nix;
+    home-manager.extraSpecialArgs = {
+        inherit unstablePkgs;
+    };
+    home-manager.users.nmoya = import ../home/home.nix;
     users.users.nmoya = {
         isNormalUser = true;
         description = "Nikolas Moya";

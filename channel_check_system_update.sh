@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-required_commands=(column date jq mktemp nix nixos-version nvd paste readlink stat uname)
+required_commands=(curl jq nvd nix-build nixos-version column stat date readlink uname mktemp)
 for command_name in "${required_commands[@]}"; do
     if ! command -v "$command_name" >/dev/null 2>&1; then
         printf 'Missing required command: %s\n' "$command_name" >&2
@@ -9,33 +9,26 @@ for command_name in "${required_commands[@]}"; do
     fi
 done
 
-script_path="${BASH_SOURCE[0]}"
-if [[ "$script_path" == */* ]]; then
-    repo_dir="$(cd -- "${script_path%/*}" && pwd -P)"
-else
-    repo_dir="$(pwd -P)"
-fi
-
-flake_attr="nixos"
-flake_ref="$repo_dir#$flake_attr"
-lock_file="$repo_dir/flake.lock"
+root_channels="/nix/var/nix/profiles/per-user/root/channels"
+nixos_config="/etc/nixos/configuration.nix"
 current_system="/run/current-system"
 booted_system="/run/booted-system"
 system_profile="/nix/var/nix/profiles/system"
-install_date_file="$repo_dir/os_installation_date"
+script_path="${BASH_SOURCE[0]}"
+if [[ "$script_path" == */* ]]; then
+    script_dir="$(cd -- "${script_path%/*}" && pwd -P)"
+else
+    script_dir="$(pwd -P)"
+fi
+install_date_file="$script_dir/os_installation_date"
 
-if [[ ! -f "$repo_dir/flake.nix" ]]; then
-    printf 'Flake not found: %s/flake.nix\n' "$repo_dir" >&2
+if [[ ! -d "$root_channels" ]]; then
+    printf 'Root channel profile not found: %s\n' "$root_channels" >&2
     exit 1
 fi
 
-if [[ ! -f "$lock_file" ]]; then
-    printf 'Flake lock not found: %s\n' "$lock_file" >&2
-    exit 1
-fi
-
-if [[ ! -e "$current_system" ]]; then
-    printf 'Current system profile not found: %s\n' "$current_system" >&2
+if [[ ! -f "$nixos_config" ]]; then
+    printf 'NixOS configuration not found: %s\n' "$nixos_config" >&2
     exit 1
 fi
 
@@ -43,7 +36,7 @@ now_epoch="$(date +%s)"
 
 format_age() {
     local epoch="$1"
-    if [[ -z "$epoch" || "$epoch" == "0" || "$epoch" == "null" ]]; then
+    if [[ -z "$epoch" || "$epoch" == "0" ]]; then
         printf 'unknown'
         return
     fi
@@ -71,7 +64,7 @@ format_age() {
 
 format_date() {
     local epoch="$1"
-    if [[ -z "$epoch" || "$epoch" == "0" || "$epoch" == "null" ]]; then
+    if [[ -z "$epoch" || "$epoch" == "0" ]]; then
         printf 'unknown'
         return
     fi
@@ -81,9 +74,7 @@ format_date() {
 
 short_hash() {
     local value="$1"
-    if [[ -z "$value" || "$value" == "null" ]]; then
-        printf 'unknown'
-    elif [[ ${#value} -gt 12 ]]; then
+    if [[ ${#value} -gt 12 ]]; then
         printf '%s' "${value:0:12}"
     else
         printf '%s' "$value"
@@ -99,6 +90,27 @@ split_nixos_version() {
     else
         printf '%s\tunknown\n' "$version"
     fi
+}
+
+discover_channel_name() {
+    local manifest="$root_channels/manifest.nix"
+    local manifest_text=""
+    local current_version="$1"
+
+    if [[ -f "$manifest" ]]; then
+        manifest_text="$(<"$manifest")"
+        if [[ "$manifest_text" =~ name[[:space:]]*=[[:space:]]*\"(nixos-[^\"]+)\" ]]; then
+            printf '%s' "${BASH_REMATCH[1]}"
+            return
+        fi
+    fi
+
+    if [[ "$current_version" =~ ^([0-9]+\.[0-9]+) ]]; then
+        printf 'nixos-%s' "${BASH_REMATCH[1]}"
+        return
+    fi
+
+    printf 'nixos-unstable'
 }
 
 first_generation_info() {
@@ -185,74 +197,6 @@ create_install_date_file() {
     } > "$install_date_file"
 }
 
-lock_node_for_input() {
-    local lock_path="$1"
-    local input_name="$2"
-
-    jq -r --arg input_name "$input_name" '.nodes.root.inputs[$input_name] // empty' "$lock_path"
-}
-
-lock_input_value() {
-    local lock_path="$1"
-    local input_name="$2"
-    local key="$3"
-    local node
-
-    node="$(lock_node_for_input "$lock_path" "$input_name")"
-    if [[ -z "$node" ]]; then
-        printf 'unknown'
-        return
-    fi
-
-    jq -r --arg node "$node" --arg key "$key" '.nodes[$node].locked[$key] // "unknown"' "$lock_path"
-}
-
-lock_input_ref() {
-    local lock_path="$1"
-    local input_name="$2"
-    local node
-    local owner
-    local repo
-    local ref
-
-    node="$(lock_node_for_input "$lock_path" "$input_name")"
-    if [[ -z "$node" ]]; then
-        printf 'unknown'
-        return
-    fi
-
-    owner="$(jq -r --arg node "$node" '.nodes[$node].original.owner // .nodes[$node].locked.owner // "unknown"' "$lock_path")"
-    repo="$(jq -r --arg node "$node" '.nodes[$node].original.repo // .nodes[$node].locked.repo // "unknown"' "$lock_path")"
-    ref="$(jq -r --arg node "$node" '.nodes[$node].original.ref // .nodes[$node].locked.ref // "unknown"' "$lock_path")"
-
-    if [[ "$owner" == "unknown" || "$repo" == "unknown" || "$ref" == "unknown" ]]; then
-        printf 'unknown'
-    else
-        printf 'github:%s/%s/%s' "$owner" "$repo" "$ref"
-    fi
-}
-
-input_change_summary() {
-    local input_name="$1"
-    local current_rev="$2"
-    local candidate_rev="$3"
-
-    if [[ "$current_rev" == "$candidate_rev" ]]; then
-        printf '%s unchanged' "$(short_hash "$current_rev")"
-    else
-        printf '%s -> %s' "$(short_hash "$current_rev")" "$(short_hash "$candidate_rev")"
-    fi
-}
-
-tmp_dir="$(mktemp -d -t check-system-update.XXXXXX)"
-candidate_lock="$tmp_dir/flake.lock"
-update_log="$(mktemp -t check-system-update-flake-update.XXXXXX.log)"
-build_log="$(mktemp -t check-system-update-build.XXXXXX.log)"
-cleanup() {
-    rm -rf "$tmp_dir"
-}
-trap cleanup EXIT
-
 current_json="$(nixos-version --json)"
 current_version="$(jq -r '.nixosVersion' <<<"$current_json")"
 current_revision="$(jq -r '.nixpkgsRevision' <<<"$current_json")"
@@ -260,17 +204,28 @@ current_semver=""
 current_version_hash=""
 IFS=$'\t' read -r current_semver current_version_hash < <(split_nixos_version "$current_version")
 
-current_nixpkgs_rev="$(lock_input_value "$lock_file" nixpkgs rev)"
-current_nixpkgs_last_modified="$(lock_input_value "$lock_file" nixpkgs lastModified)"
-current_nixpkgs_ref="$(lock_input_ref "$lock_file" nixpkgs)"
-current_unstable_rev="$(lock_input_value "$lock_file" nixpkgs-unstable rev)"
-current_unstable_last_modified="$(lock_input_value "$lock_file" nixpkgs-unstable lastModified)"
-current_unstable_ref="$(lock_input_ref "$lock_file" nixpkgs-unstable)"
-current_home_manager_rev="$(lock_input_value "$lock_file" home-manager rev)"
-current_home_manager_last_modified="$(lock_input_value "$lock_file" home-manager lastModified)"
-current_home_manager_ref="$(lock_input_ref "$lock_file" home-manager)"
+channel_name="$(discover_channel_name "$current_version")"
+channel_url="https://channels.nixos.org/$channel_name"
+remote_revision="$(curl --fail --silent --show-error --location "$channel_url/git-revision")"
+remote_page="$(curl --fail --silent --show-error --location "$channel_url")"
 
-last_lock_update_epoch="$(stat -c %Y "$lock_file")"
+remote_version="unknown"
+release_name="${channel_name#nixos-}"
+release_regex="${release_name//./\\.}"
+if [[ "$remote_page" =~ nixos-${release_regex}\.([0-9]+)\.([0-9a-f]{7,40}) ]]; then
+    remote_version="${release_name}.${BASH_REMATCH[1]}.${BASH_REMATCH[2]}"
+elif [[ "$remote_page" =~ nixos-([0-9]+\.[0-9]+\.[0-9]+\.[0-9a-f]{7,40}) ]]; then
+    remote_version="${BASH_REMATCH[1]}"
+fi
+
+remote_semver=""
+remote_version_hash=""
+IFS=$'\t' read -r remote_semver remote_version_hash < <(split_nixos_version "$remote_version")
+if [[ "$remote_version_hash" == "unknown" ]]; then
+    remote_version_hash="$(short_hash "$remote_revision")"
+fi
+
+last_channel_update_epoch="$(stat -c %Y "$root_channels")"
 last_rebuild_epoch="$(stat -c %Y "$system_profile")"
 last_reboot_epoch="$(boot_time_epoch)"
 IFS=$'\t' read -r first_generation generation_count fallback_install_epoch < <(first_generation_info)
@@ -318,42 +273,20 @@ nix_version="$(nix --version 2>/dev/null || printf 'unknown')"
 
 printf '\nSystem update check\n'
 printf '%s\n' '=================='
-printf 'This builds a candidate system from updated flake inputs and compares it with the active system.\n'
-printf 'It does not update flake.lock, switch generations, or modify /etc/nixos.\n\n'
-
-printf 'Updating candidate lock file...\n'
-printf 'Candidate lock: %s\n' "$candidate_lock"
-printf 'Update log: %s\n' "$update_log"
-if ! nix flake update --flake "$repo_dir" --output-lock-file "$candidate_lock" >"$update_log" 2>&1; then
-    printf 'Candidate lock update failed. Full update log: %s\n' "$update_log" >&2
-    exit 1
-fi
-
-candidate_nixpkgs_rev="$(lock_input_value "$candidate_lock" nixpkgs rev)"
-candidate_nixpkgs_last_modified="$(lock_input_value "$candidate_lock" nixpkgs lastModified)"
-candidate_nixpkgs_ref="$(lock_input_ref "$candidate_lock" nixpkgs)"
-candidate_unstable_rev="$(lock_input_value "$candidate_lock" nixpkgs-unstable rev)"
-candidate_unstable_last_modified="$(lock_input_value "$candidate_lock" nixpkgs-unstable lastModified)"
-candidate_unstable_ref="$(lock_input_ref "$candidate_lock" nixpkgs-unstable)"
-candidate_home_manager_rev="$(lock_input_value "$candidate_lock" home-manager rev)"
-candidate_home_manager_last_modified="$(lock_input_value "$candidate_lock" home-manager lastModified)"
-candidate_home_manager_ref="$(lock_input_ref "$candidate_lock" home-manager)"
+printf 'This builds a candidate system from the remote channel and compares it with the active system.\n'
+printf 'It does not update channels, switch generations, or modify /etc/nixos.\n\n'
 
 {
     printf 'Metric\tValue\tWhen / Details\n'
-    printf 'Time since flake.lock update\t%s\t%s\n' "$(format_age "$last_lock_update_epoch")" "$(format_date "$last_lock_update_epoch")"
+    printf 'Time since last channel update\t%s\t%s\n' "$(format_age "$last_channel_update_epoch")" "$(format_date "$last_channel_update_epoch")"
     printf 'Time since last rebuild-switch\t%s\t%s\n' "$(format_age "$last_rebuild_epoch")" "$(format_date "$last_rebuild_epoch")"
     printf 'Time since last reboot\t%s\t%s\n' "$(format_age "$last_reboot_epoch")" "$(format_date "$last_reboot_epoch")"
     printf 'Time since OS installation\t%s\t%s (%s)\n' "$(format_age "$install_epoch")" "$(format_date "$install_epoch")" "$install_source"
     printf 'Current version\t%s\tshort hash %s\n' "$current_semver" "$(short_hash "$current_revision")"
     printf 'Current full hash\t%s\tfrom nixos-version --json\n' "$current_revision"
-    printf 'Flake\t%s\t%s\n' "$flake_attr" "$flake_ref"
-    printf 'nixpkgs lock\t%s\t%s -> %s\n' "$(input_change_summary nixpkgs "$current_nixpkgs_rev" "$candidate_nixpkgs_rev")" "$current_nixpkgs_ref" "$candidate_nixpkgs_ref"
-    printf 'nixpkgs lock date\t%s\t%s -> %s\n' "$(format_age "$current_nixpkgs_last_modified")" "$(format_date "$current_nixpkgs_last_modified")" "$(format_date "$candidate_nixpkgs_last_modified")"
-    printf 'nixpkgs-unstable lock\t%s\t%s -> %s\n' "$(input_change_summary nixpkgs-unstable "$current_unstable_rev" "$candidate_unstable_rev")" "$current_unstable_ref" "$candidate_unstable_ref"
-    printf 'nixpkgs-unstable lock date\t%s\t%s -> %s\n' "$(format_age "$current_unstable_last_modified")" "$(format_date "$current_unstable_last_modified")" "$(format_date "$candidate_unstable_last_modified")"
-    printf 'home-manager lock\t%s\t%s -> %s\n' "$(input_change_summary home-manager "$current_home_manager_rev" "$candidate_home_manager_rev")" "$current_home_manager_ref" "$candidate_home_manager_ref"
-    printf 'home-manager lock date\t%s\t%s -> %s\n' "$(format_age "$current_home_manager_last_modified")" "$(format_date "$current_home_manager_last_modified")" "$(format_date "$candidate_home_manager_last_modified")"
+    printf 'Remote version\t%s\tshort hash %s\n' "$remote_semver" "$(short_hash "$remote_revision")"
+    printf 'Remote full hash\t%s\t%s/git-revision\n' "$remote_revision" "$channel_url"
+    printf 'Channel\t%s\t%s\n' "$channel_name" "$channel_url"
     printf 'Current generation\t%s\t%s\n' "$current_generation" "$current_system_path"
     printf 'Retained generations\t%s\toldest retained generation %s\n' "$generation_count" "$first_generation"
     printf 'Boot status\t%s\tbooted: %s\n' "$reboot_status" "${booted_system_path:-unknown}"
@@ -362,16 +295,13 @@ candidate_home_manager_ref="$(lock_input_ref "$candidate_lock" home-manager)"
     printf 'Nix\t%s\tpackage manager\n' "$nix_version"
 } | column -t -s $'\t'
 
-printf '\nBuilding candidate system from updated flake lock...\n'
+printf '\nBuilding candidate system from %s...\n' "$channel_url"
+build_log="$(mktemp -t check-system-update.XXXXXX.log)"
 printf 'Build log: %s\n' "$build_log"
 
 if ! candidate_system="$(
-    nix build \
-        --reference-lock-file "$candidate_lock" \
-        --no-link \
-        --print-out-paths \
-        "$repo_dir#nixosConfigurations.$flake_attr.config.system.build.toplevel" \
-        2>"$build_log"
+    NIX_PATH="nixpkgs=$channel_url/nixexprs.tar.xz:nixos-config=$nixos_config:$root_channels" \
+        nix-build '<nixpkgs/nixos>' -A system --no-out-link 2>"$build_log"
 )"; then
     printf 'Candidate system build failed. Full build log: %s\n' "$build_log" >&2
     exit 1
