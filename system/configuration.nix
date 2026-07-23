@@ -25,6 +25,7 @@
 
     # Networking
     networking.hostName = "nixos";
+    networking.firewall.allowedUDPPorts = [ 8211 ];
     networking.networkmanager.enable = true;
     # Uncomment later for VPN manual configs.
     # networking.networkmanager.plugins = with pkgs; [
@@ -153,6 +154,9 @@
         wiremix # TUI tool to configure sound output / input
         tree
         ffmpeg # video editor
+        netcat # network debugging tool
+        tcpdump # network debugging tool
+        net-tools # network debugging tool
 
         nvd # nixos package diff tool
 
