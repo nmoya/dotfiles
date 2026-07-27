@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$HOME/Projects/vpin-retro-launcher"
+
+if [ -t 1 ]; then
+    exec uv run src/main.py
+else
+    exec alacritty --working-directory "$HOME/Projects/vpin-retro-launcher" -e uv run src/main.py
+fi

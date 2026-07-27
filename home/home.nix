@@ -15,6 +15,7 @@ let
     hardwareStatsInputs = with pkgs; [ coreutils gawk ];
     powerMenuInputs = with pkgs; [ fuzzel sway systemd ];
     iplayedInputs = with pkgs; [ uv alacritty ];
+    vpinRetroLauncherInputs = with pkgs; [ uv alacritty ];
     vpinballMenuInputs = with pkgs; [ fuzzel ];
     openInputs = with pkgs; [ nautilus xdg-utils ];
 in
@@ -77,6 +78,7 @@ in
         (customScript "hardware-network" hardwareStatsInputs)
         (customScript "power-menu" powerMenuInputs)
         (customScript "iplayed" iplayedInputs)
+        (customScript "vpin-retro-launcher" vpinRetroLauncherInputs)
         (customScript "vpinball-menu" vpinballMenuInputs)
         (customScript "open" openInputs)
     ];
@@ -102,6 +104,14 @@ in
     xdg.desktopEntries.iplayed = {
         name = "iplayed";
         exec = "iplayed";
+        terminal = false;
+        type = "Application";
+        categories = [ "Game" ];
+    };
+
+    xdg.desktopEntries.vpin-retro-launcher = {
+        name = "vpin-retro-launcher";
+        exec = "vpin-retro-launcher";
         terminal = false;
         type = "Application";
         categories = [ "Game" ];
