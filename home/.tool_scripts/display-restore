@@ -12,6 +12,7 @@ fi
 case "$profile" in
     '4k@240 1.5x') display-4k-240-1.5x ;;
     '4k@240 1x') display-4k-240-1x ;;
+    '4k@240 portrait 1x') display-4k-240-portrait-1x ;;
     'mirror 4k@120 1.5x') display-mirror-4k-120-1.5x ;;
     'mirror 4k@120 1x') display-mirror-4k-120-1x ;;
     'tv 4k@120 1x') display-tv-4k-120-1x ;;

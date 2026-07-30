@@ -63,6 +63,7 @@ in
         # Custom scripts
         (customScript "display-4k-240-1.5x" swayDisplayInputs)
         (customScript "display-4k-240-1x" swayDisplayInputs)
+        (customScript "display-4k-240-portrait-1x" swayDisplayInputs)
         (customScript "display-tv-4k-120-1x" swayDisplayInputs)
         (customScript "display-mirror-4k-120-1.5x" swayMirrorInputs)
         (customScript "display-mirror-4k-120-1x" swayMirrorInputs)

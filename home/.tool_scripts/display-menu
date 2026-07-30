@@ -4,6 +4,7 @@ set -euo pipefail
 choice="$({
     printf '%s\n' '4k@240 1.5x'
     printf '%s\n' '4k@240 1x'
+    printf '%s\n' '4k@240 portrait 1x'
     printf '%s\n' 'mirror 4k@120 1.5x'
     printf '%s\n' 'mirror 4k@120 1x'
     printf '%s\n' 'tv 4k@120 1x'
@@ -12,6 +13,7 @@ choice="$({
 case "$choice" in
     '4k@240 1.5x') display-4k-240-1.5x ;;
     '4k@240 1x') display-4k-240-1x ;;
+    '4k@240 portrait 1x') display-4k-240-portrait-1x ;;
     'mirror 4k@120 1.5x') display-mirror-4k-120-1.5x ;;
     'mirror 4k@120 1x') display-mirror-4k-120-1x ;;
     'tv 4k@120 1x') display-tv-4k-120-1x ;;

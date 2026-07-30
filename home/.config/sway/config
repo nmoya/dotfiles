@@ -45,6 +45,7 @@ bindsym $super+Ctrl+2 exec display-4k-240-1x
 bindsym $super+Ctrl+3 exec display-mirror-4k-120-1.5x
 bindsym $super+Ctrl+4 exec display-mirror-4k-120-1x
 bindsym $super+Ctrl+5 exec display-tv-4k-120-1x
+bindsym $super+Ctrl+6 exec display-4k-240-portrait-1x
 
 # Layout
 bindsym $super+b splith

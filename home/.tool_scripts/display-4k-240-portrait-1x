@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+pkill -x wl-mirror || true
+
+swaymsg "output HDMI-A-1 disable"
+swaymsg "output DP-1 enable mode 3840x2160@240Hz scale 1 transform 90 position 0 0"
+
+printf '%s\n' '4k@240 portrait 1x' > "${XDG_RUNTIME_DIR:-/tmp}/display-profile"
