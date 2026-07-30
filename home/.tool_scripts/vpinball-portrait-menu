@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+shopt -s nullglob
+
+paths=("$HOME"/VPinball/*/*.vpx)
+
+if ((${#paths[@]} == 0)); then
+    exit 0
+fi
+
+choice="$({
+    for path in "${paths[@]}"; do
+        printf '%s\n' "${path##*/}"
+    done
+} | fuzzel --dmenu --no-exit-on-keyboard-focus-loss --prompt 'VPinball Portrait: ')" || exit 0
+
+for path in "${paths[@]}"; do
+    if [[ "${path##*/}" == "$choice" ]]; then
+        exec vpinball-portrait "$path"
+    fi
+done

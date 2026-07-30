@@ -17,6 +17,8 @@ let
     iplayedInputs = with pkgs; [ uv alacritty ];
     vpinRetroLauncherInputs = with pkgs; [ uv alacritty ];
     vpinballMenuInputs = with pkgs; [ fuzzel ];
+    vpinballPortraitInputs = [ ];
+    vpinballPortraitMenuInputs = with pkgs; [ fuzzel ];
     openInputs = with pkgs; [ nautilus xdg-utils ];
 in
 {
@@ -81,6 +83,8 @@ in
         (customScript "iplayed" iplayedInputs)
         (customScript "vpin-retro-launcher" vpinRetroLauncherInputs)
         (customScript "vpinball-menu" vpinballMenuInputs)
+        (customScript "vpinball-portrait" vpinballPortraitInputs)
+        (customScript "vpinball-portrait-menu" vpinballPortraitMenuInputs)
         (customScript "open" openInputs)
     ];
 
@@ -99,6 +103,10 @@ in
     home.file.".vimrc".source = ./.vimrc;
     home.file.".local/share/VPinballX/10.8/VPinballX.ini" = {
         source = ./.local/share/VPinballX/10.8/VPinballX.ini;
+        force = true;
+    };
+    home.file.".local/share/VPinballX/10.8/VPinballX-portrait.ini" = {
+        source = ./.local/share/VPinballX/10.8/VPinballX-portrait.ini;
         force = true;
     };
 
@@ -137,6 +145,14 @@ in
     xdg.desktopEntries.vpinball-menu = {
         name = "VPinball";
         exec = "vpinball-menu";
+        terminal = false;
+        type = "Application";
+        categories = [ "Game" ];
+    };
+
+    xdg.desktopEntries.vpinball-portrait-menu = {
+        name = "VPinball Portrait";
+        exec = "vpinball-portrait-menu";
         terminal = false;
         type = "Application";
         categories = [ "Game" ];

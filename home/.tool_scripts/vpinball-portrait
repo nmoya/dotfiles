@@ -1,0 +1,1 @@
+exec vpinball -Ini "$HOME/.local/share/VPinballX/10.8/VPinballX-portrait.ini" -Play "$@"
