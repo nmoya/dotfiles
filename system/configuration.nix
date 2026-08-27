@@ -173,6 +173,7 @@
         ripgrep # Content search
         fzf # subtree navigation
         imagemagick # image preview and editor
+        binutils # for objdump and other binary tools (strings)
     ];
 
     # This value determines the NixOS release from which the default

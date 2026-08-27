@@ -93,6 +93,11 @@ in
     xdg.configFile."fuzzel/fuzzel.ini".source = ./.config/fuzzel/fuzzel.ini;
     xdg.configFile."waybar/config".source = ./.config/waybar/config;
     xdg.configFile."waybar/style.css".source = ./.config/waybar/style.css;
+    xdg.configFile."nixpkgs/config.nix".text = ''
+        {
+            allowUnfree = true;
+        }
+    '';
 
     home.sessionVariables.XCOMPOSEFILE = "${config.home.homeDirectory}/.XCompose";
     home.file.".XCompose".source = ./.XCompose;
