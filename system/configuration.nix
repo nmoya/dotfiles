@@ -157,6 +157,7 @@
         wiremix # TUI tool to configure sound output / input
         tree
         ffmpeg # video editor
+        aseprite # Pixel art editor
         netcat # network debugging tool
         tcpdump # network debugging tool
         net-tools # network debugging tool
