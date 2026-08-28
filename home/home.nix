@@ -42,7 +42,7 @@ in
         localVpinball
         unstablePkgs.vpxtool
 
-        opencode # TUI client for LLMs
+        unstablePkgs.opencode # TUI client for LLMs
         vesktop # open source client for discord
         vscode # Text editor
         github-desktop # GUI client for github
