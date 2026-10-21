@@ -89,16 +89,25 @@
     users.users.nmoya = {
         isNormalUser = true;
         description = "Nikolas Moya";
-        extraGroups = [ "networkmanager" "wheel" "dialout" ];
+        extraGroups = [ "networkmanager" "wheel" "dialout" "libvirtd" ];
         packages = with pkgs; [
     		
     	];
     };
 
+    # Install solaar to manage Logitech devices
     hardware.logitech.wireless = {
         enable = true;
         enableGraphical = true;
+    }; 
+
+    # Install virtl-manager for virtual machines
+    virtualisation.libvirtd = {
+        enable = true;
+        qemu.swtpm.enable = true;
     };
+    virtualisation.spiceUSBRedirection.enable = true;
+    programs.virt-manager.enable = true;
 
     # NVIDIA / graphics
     hardware.graphics.enable = true;
