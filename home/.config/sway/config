@@ -30,6 +30,11 @@ input type:keyboard {
     xkb_layout us
     xkb_variant intl
 }
+input type:pointer {
+    accel_profile flat
+    pointer_accel 0.0
+    scroll_factor 5
+}
 
 bindsym $super+Return exec $term
 bindsym $super+d exec $menu
