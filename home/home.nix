@@ -42,6 +42,8 @@ in
         localVpinball
         unstablePkgs.vpxtool
 
+        gh # CLI client for github
+
         unstablePkgs.opencode # TUI client for LLMs
         vesktop # open source client for discord
         vscode # Text editor

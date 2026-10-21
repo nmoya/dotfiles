@@ -95,6 +95,11 @@
     	];
     };
 
+    hardware.logitech.wireless = {
+        enable = true;
+        enableGraphical = true;
+    };
+
     # NVIDIA / graphics
     hardware.graphics.enable = true;
     hardware.graphics.enable32Bit = true;
