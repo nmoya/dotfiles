@@ -31,9 +31,9 @@ input type:keyboard {
     xkb_variant intl
 }
 input type:pointer {
-    accel_profile flat
+    accel_profile adaptive
     pointer_accel 0.0
-    scroll_factor 5
+    scroll_factor 3
 }
 
 bindsym $super+Return exec $term
