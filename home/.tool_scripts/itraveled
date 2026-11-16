@@ -1,0 +1,82 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+project_dir="$HOME/Projects/itraveled-private"
+directus_url="http://127.0.0.1:8055"
+
+if [[ ${1:-} != "--inside-nix-shell" ]]; then
+    if [[ ! -t 1 ]]; then
+        exec alacritty --working-directory "$project_dir" -e "$0"
+    fi
+
+    cd "$project_dir"
+    printf -v command '%q ' "$0" --inside-nix-shell
+    if ! nix-shell --run "$command"; then
+        printf '\nitraveled data entry failed. Review the error above.\n' >&2
+        read -r -p "Press Enter to close this terminal..."
+        exit 1
+    fi
+    exit 0
+fi
+
+cd "$project_dir"
+
+if [[ -n $(git status --porcelain) ]]; then
+    printf '%s\n' "The itraveled working tree already has changes." >&2
+    printf '%s\n' "Commit or stash them before starting data entry." >&2
+    git status --short >&2
+    exit 1
+fi
+
+directus_started=false
+cleanup() {
+    if [[ $directus_started == true ]]; then
+        printf '\nStopping Directus...\n'
+        podman-compose --file directus/compose.yaml down || true
+    fi
+}
+trap cleanup EXIT
+
+printf '%s\n' "Starting Directus..."
+directus_started=true
+podman-compose --file directus/compose.yaml up -d
+
+printf '%s\n' "Waiting for Directus..."
+for _ in {1..60}; do
+    if curl --fail --silent "$directus_url/server/ping" >/dev/null; then
+        break
+    fi
+    sleep 1
+done
+
+if ! curl --fail --silent "$directus_url/server/ping" >/dev/null; then
+    printf '%s\n' "Directus did not become ready within 60 seconds." >&2
+    exit 1
+fi
+
+./scripts/configure-directus.sh
+xdg-open "$directus_url" >/dev/null 2>&1 &
+
+printf '\nDirectus is ready at %s\n' "$directus_url"
+read -r -p "Press Enter when you are done editing..."
+
+printf '%s\n' "Stopping Directus before committing..."
+podman-compose --file directus/compose.yaml down
+directus_started=false
+
+if [[ $(sqlite3 data/travels.db 'PRAGMA integrity_check;') != "ok" ]]; then
+    printf '%s\n' "SQLite integrity check failed; changes were not committed." >&2
+    exit 1
+fi
+
+git add -- data/travels.db directus/uploads
+
+if git diff --cached --quiet; then
+    printf '%s\n' "No data-entry changes found."
+    exit 0
+fi
+
+git commit -m "Add trip entry"
+git push
+
+printf '%s\n' "Trip entry pushed successfully."
