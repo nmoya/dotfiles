@@ -25,7 +25,10 @@
 
     # Networking
     networking.hostName = "nixos";
-    networking.firewall.allowedUDPPorts = [ 8211 ];
+    networking.firewall = {
+        allowedUDPPorts = [ 31314 ];
+        allowedTCPPorts = [ 31315 20443 ];
+    };
     networking.networkmanager.enable = true;
     # Uncomment later for VPN manual configs.
     # networking.networkmanager.plugins = with pkgs; [
